@@ -204,7 +204,8 @@ function AddToChat(input, nickName, role)
 
 
     //This is for the chat to scroll up
-    let newBoxSize = parseInt (maxPanelHeight - newChatBox.getBoundingClientRect ().top);
+    let newBoxSize = parseInt (newChatBox.offsetHeight);
+    console.log(newBoxSize)
 
     for (let i = 0; i < chatBoxes.length; i++)
     {

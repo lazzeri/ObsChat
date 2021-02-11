@@ -1,0 +1,427 @@
+<html>
+<head>
+    <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.0.6/fetch-jsonp.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <style>
+        .center {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .grid-container {
+            display: grid;
+
+        }
+
+        .title {
+            font-family: "Lucida Console", Monaco, monospace;
+            font-size: 23px;
+            letter-spacing: 2px;
+            word-spacing: -7px;
+            color: #000000;
+            font-weight: bold;
+            text-decoration: none;
+            font-style: oblique;
+            font-variant: normal;
+            text-transform: none;
+        }
+
+        .subTitle {
+            font-family: "Lucida Console", Monaco, monospace;
+            font-size: 16px;
+            letter-spacing: 2px;
+            word-spacing: -8px;
+            color: #000000;
+            font-weight: normal;
+            text-decoration: none;
+            font-style: normal;
+            font-variant: normal;
+            text-transform: none;
+        }
+
+        #MainPanel {
+            font-family: Arial;
+            color: black;
+            width: 300px;
+            height: 650px;
+            background-color: gray;
+            position: relative;
+        }
+
+        #ControlPanel {
+            left: 620px;
+            top: 10px;
+            color: black;
+            width: 320px;
+            height: 650px;
+            position: absolute;
+        }
+
+        .input-box {
+            border-radius: 20px;
+            border: 3px solid green;
+            width: 250px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .dropdown {
+            width: 50%;
+        }
+
+        #dropDownAnimationSelection {
+            width: 200px;
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        @font-face {
+            font-family: 'Normal';
+            src: url('helvetica_neu_bold.woff2') format('woff2'),
+            url('helvetica_neu_bold.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'Arcade';
+            src: url('arcadeclassic-webfont.woff2') format('woff2'),
+            url('arcadeclassic-webfont.woff') format('woff');
+        }
+
+        @-webkit-keyframes SliiideToTheLeft {
+            0% {
+                -webkit-transform: translateX(60px);
+            }
+            70% {
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: translateX(0px);
+            }
+        }
+
+        .dropdownFont {
+            width: 200px;
+            margin-left: 20px;
+        }
+
+        @-webkit-keyframes FromDownTown {
+            0% {
+                -webkit-transform: translateY(20px);
+            }
+            70% {
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: translateY(0px);
+            }
+        }
+    </style>
+</head>
+<body onload="RunCode();">
+<div id="MainPanel">
+</div>
+<div id="buttonGroup" class="grid-container" style="width:200px; margin-left: 30px">
+    <button class="btn btn-primary" style="position: relative; margin-top:10px" onclick="AddChat('basic');  ">Add Normal
+        Chat
+    </button>
+    <button class="btn btn-primary" style="position: relative;margin-top:10px" onclick="AddChat('superChat');">Add
+        SuperChat
+    </button>
+    <button class="btn btn-primary" style="position: relative;margin-top:10px" onclick="AddChat('mods');">Add Mod Chat
+    </button>
+    <button class="btn btn-primary" style="position: relative;margin-top:10px" onclick="AddChat('subs');">Add
+        Subscribers Chat
+    </button>
+    <button class="btn btn-warning" style="position: relative; margin-top: 10px" onclick="ResetChat();">Reset Chat
+    </button>
+</div>
+<div id="ControlPanel">
+    <div id="GridContainer" class="grid-container">
+        <div class="dropdown" style="margin-left: 0px">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                Menu
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" onclick="showFolder(this.innerText);">Basic Preferences</a>
+                <a class="dropdown-item" onclick="showFolder(this.innerText);">Basic Chat</a>
+                <a class="dropdown-item" onclick="showFolder(this.innerText);">Subscribers</a>
+                <a class="dropdown-item" onclick="showFolder(this.innerText);">Mods</a>
+                <a class="dropdown-item" onclick="showFolder(this.innerText);">SuperChat</a>
+                <a class="dropdown-item" onclick="showFolder(this.innerText);">Icons</a>
+                <a class="dropdown-item" onclick="showFolder(this.innerText);">What to Block</a>
+            </div>
+        </div>
+        <div id="basicPreferences" style="margin-top:20px;">
+            <label class="center title">Basic Preferences:</label>
+            <label class="center subTitle">Streamer Name:</label>
+            <input class="input-box" type="text" id="streamerName">
+            <label class="center subTitle">Chat Width:</label>
+            <input class="input-box" type="number" id="chatWidth" value="300">
+            <label class="center subTitle">Font Name:</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle dropdownFont" type="button" id="dropDownFont"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="font-family: Normal, serif">
+                    Normal
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item fontSelection" style="font-family: Normal">Normal</a>
+                    <a class="dropdown-item fontSelection" style="font-family: Georgia">Georgia</a>
+                    <a class="dropdown-item fontSelection"
+                       style="font-family: Palatino Linotype, Book Antiqua, Palatino, serif">Palatino</a>
+                    <a class="dropdown-item fontSelection" style="font-family: Times New Roman">Times New
+                        Roman</a>
+                    <a class="dropdown-item fontSelection" style="font-family: Arial">Arial</a>
+                    <a class="dropdown-item fontSelection" style="font-family: Arial Black">Arial
+                        Black</a>
+                    <a class="dropdown-item fontSelection" style="font-family: Comic Sans MS">Comic
+                        Sans</a>
+                    <a class="dropdown-item fontSelection" style="font-family: Impact">Impact</a>
+                    <a class="dropdown-item fontSelection"
+                       style="font-family: Lucida Sans Unicode">Lucida Sans</a>
+                    <a class="dropdown-item fontSelection" style="font-family: Tahoma">Tahoma</a>
+                    <a class="dropdown-item fontSelection" style="font-family: Trebuchet MS">Trebuchet</a>
+                    <a class="dropdown-item fontSelection" style="font-family: Verdana">Verdana</a>
+                    <a class="dropdown-item fontSelection"
+                       style="font-family: Courier New, Courier, monospace">Courier</a>
+                    <a class="dropdown-item fontSelection" style="font-family: Lucida Console">Lucida
+                        Console</a>
+                    <a class="dropdown-item fontSelection" style="font-family: Arcade">Arcade</a>
+                </div>
+            </div>
+            <label class="center subTitle">Chat Enter Animation:</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropDownAnimationSelection"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    None
+                </button>
+                <div class="dropdown-menu" id="animationSelection">
+                    <a class="dropdown-item dropDownAnimationSelection">None</a>
+                    <a class="dropdown-item dropDownAnimationSelection">SliiideToTheLeft</a>
+                    <a class="dropdown-item dropDownAnimationSelection">FromDownTown</a>
+                </div>
+            </div>
+            <label class="center subTitle">Padding:</label>
+            <input class="input-box" type="number" id="padding" value="15">
+            <label class="center subTitle">Font Color:</label>
+            <input class="input-box" type="color" id="fontColor" style="height: 40px"
+                   onchange="setBasicFontColor(this.value)">
+            <label class="center subTitle">Font Size:</label>
+            <input class="input-box" type="number" id="fontSize" value="13">
+            <label class="center subTitle">Letter Spacing:</label>
+            <input class="input-box" type="number" id="letterSpacing" value="0" onchange="setLetterSpacing(this.value)">
+            <label class="center subTitle">Word Spacing:</label>
+            <input class="input-box" type="number" id="wordSpacing" value="0" onchange="setWordSpacing(this.value)">
+        </div>
+        <div id="basicChat" style="margin-top:20px;display: none">
+            <label class="center title">Basic Chat:</label>
+            <br>
+            <label class="center subTitle">Font Weight (Doesn't work with every font)</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle dropdownFont" type="button" id="dropDownBasicChatIcon"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    None
+                </button>
+                <div class="dropdown-menu basicChatIconWeight" id="dropDownBasicChatSelection">
+                    <a class="dropdown-item dropDownBasicChatSelectionItem">Light</a>
+                    <a class="dropdown-item dropDownBasicChatSelectionItem">Medium</a>
+                    <a class="dropdown-item dropDownBasicChatSelectionItem">Bold</a>
+                </div>
+            </div>
+            <label class="center subTitle" style="text-align: start">Do you want an Icon or Profile Picture next to the
+                name?</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle dropdownFont" type="button" id="dropDownBChatIcon"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    None
+                </button>
+                <div class="dropdown-menu" id="dropDownBasicFontSelection">
+                    <a class="dropdown-item basicChatIconItem">None</a>
+                    <a class="dropdown-item basicChatIconItem">Icons</a>
+                    <a class="dropdown-item basicChatIconItem">Profile Pictures</a>
+                </div>
+            </div>
+            <label class="center subTitle">Select Username Colors:</label>
+            <div id="colorAdder">
+
+            </div>
+            <br>
+            <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
+                    onclick="addColor('colorAdder');">+
+            </button>
+            <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
+                    onclick="removeColor('colorAdder');">-
+            </button>
+        </div>
+        <div id="subscriber" style="margin-top:20px;display: none">
+            <label class="center title">Subscriber Settings:</label>
+            <br>
+            <label class="center subTitle">Font Weight (Doesn't work with every font)</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle dropdownFont" type="button"
+                        id="subDropDownBasicChatIcon"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    None
+                </button>
+                <div class="dropdown-menu basicChatIconWeight" id="subDropDownBasicChatSelection">
+                    <a class="dropdown-item dropDownBasicChatSelectionItem">Light</a>
+                    <a class="dropdown-item dropDownBasicChatSelectionItem">Medium</a>
+                    <a class="dropdown-item dropDownBasicChatSelectionItem">Bold</a>
+                </div>
+            </div>
+            <label class="center subTitle" style="text-align: start">Do you want an Icon or Profile Picture next to the
+                name?</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle dropdownFont" type="button" id="subDropDownBChatIcon"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    None
+                </button>
+                <div class="dropdown-menu" id="subDropDownBasicFontSelection">
+                    <a class="dropdown-item basicChatIconItem">None</a>
+                    <a class="dropdown-item basicChatIconItem">Icons</a>
+                    <a class="dropdown-item basicChatIconItem">Profile Pictures</a>
+                </div>
+            </div>
+            <label class="center subTitle">Select Username Colors:</label>
+            <div id="subColorAdder">
+
+            </div>
+            <br>
+            <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
+                    onclick="addColor('subColorAdder');">+
+            </button>
+            <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
+                    onclick="removeColor('subColorAdder');">-
+            </button>
+        </div>
+        <div id="mods" style="margin-top:20px;display: none">
+            <label class="center title">Moderator Settings:</label>
+            <br>
+            <label class="center subTitle">Font Weight (Doesn't work with every font)</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle dropdownFont" type="button"
+                        id="modDropDownBasicChatIcon"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    None
+                </button>
+                <div class="dropdown-menu basicChatIconWeight" id="modDropDownBasicChatSelection">
+                    <a class="dropdown-item dropDownBasicChatSelectionItem">Light</a>
+                    <a class="dropdown-item dropDownBasicChatSelectionItem">Medium</a>
+                    <a class="dropdown-item dropDownBasicChatSelectionItem">Bold</a>
+                </div>
+            </div>
+            <label class="center subTitle" style="text-align: start">Do you want an Icon or Profile Picture next to the
+                name?</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle dropdownFont" type="button" id="modDropDownBChatIcon"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    None
+                </button>
+                <div class="dropdown-menu" id="modDropDownBasicFontSelection">
+                    <a class="dropdown-item basicChatIconItem">None</a>
+                    <a class="dropdown-item basicChatIconItem">Icons</a>
+                    <a class="dropdown-item basicChatIconItem">Profile Pictures</a>
+                </div>
+            </div>
+            <label class="center subTitle">Select Username Colors:</label>
+            <div id="modColorAdder">
+
+            </div>
+            <br>
+            <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
+                    onclick="addColor('subColorAdder');">+
+            </button>
+            <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
+                    onclick="removeColor('subColorAdder');">-
+            </button>
+        </div>
+        <div id="superChat" style="margin-top:20px;display: none">
+            <label class="center title">Moderator Settings:</label>
+            <br>
+            <label class="center subTitle">Font Weight (Doesn't work with every font)</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle dropdownFont" type="button"
+                        id="superDropDownBasicChatIcon"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    None
+                </button>
+                <div class="dropdown-menu basicChatIconWeight" id="superDropDownBasicChatSelection">
+                    <a class="dropdown-item dropDownBasicChatSelectionItem">Light</a>
+                    <a class="dropdown-item dropDownBasicChatSelectionItem">Medium</a>
+                    <a class="dropdown-item dropDownBasicChatSelectionItem">Bold</a>
+                </div>
+            </div>
+            <label class="center subTitle" style="text-align: start">Do you want an Icon or Profile Picture next to the
+                name?</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle dropdownFont" type="button" id="superDropDownBChatIcon"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    None
+                </button>
+                <div class="dropdown-menu" id="superDropDownBasicFontSelection">
+                    <a class="dropdown-item basicChatIconItem">None</a>
+                    <a class="dropdown-item basicChatIconItem">Icons</a>
+                    <a class="dropdown-item basicChatIconItem">Profile Pictures</a>
+                </div>
+            </div>
+            <label class="center subTitle">Select Username Colors:</label>
+            <div id="superColorAdder">
+
+            </div>
+            <br>
+            <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
+                    onclick="addColor('superColorAdder');">+
+            </button>
+            <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
+                    onclick="removeColor('superColorAdder');">-
+            </button>
+        </div>
+
+        <div id="icons" style="margin-top:20px; display: none"></div>
+        <div id="whatToShow" style="margin-top:20px; display: none"></div>
+    </div>
+    <div id="test">
+        <div>
+        test:
+        </div>
+        <div>
+            testosteron
+        </div>
+    </div>
+
+</body>
+</html>

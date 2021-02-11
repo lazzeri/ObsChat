@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9c5c7f75-eb69-4adc-b781-87e42d52f401" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="1fma48dN66wC6aBk9IuSXWdcU6D" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="GitIgnore" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Luca\Desktop\ObsChat\ChatGenerator" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Eventtracker.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/ChatGenerator/Eventtracker.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.Eventtracker.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9c5c7f75-eb69-4adc-b781-87e42d52f401" name="Default Changelist" comment="" />
+      <created>1596825527979</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596825527979</updated>
+      <workItem from="1596825529027" duration="111000" />
+      <workItem from="1612513779790" duration="12174000" />
+      <workItem from="1612629925240" duration="1839000" />
+      <workItem from="1612715250376" duration="7551000" />
+      <workItem from="1612866313568" duration="5047000" />
+      <workItem from="1612877078677" duration="8440000" />
+      <workItem from="1612943053395" duration="25317000" />
+      <workItem from="1612986287656" duration="27000" />
+      <workItem from="1613034599044" duration="4075000" />
+      <workItem from="1613042006099" duration="5000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="461" y="165" key="SettingsEditor" timestamp="1612964548898">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040/-1920.3.1920.1040@0.0.1920.1040" timestamp="1612964548898" />
+    <state x="2397" y="69" width="1521" height="992" key="dock-window-1" timestamp="1612946442449">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2397" y="69" width="1521" height="992" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.3.1920.1040@0.0.1920.1040" timestamp="1612946442449" />
+    <state x="1988" y="0" width="1529" height="1022" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.3.1920.1040@1920.0.1920.1040" timestamp="1612871399209" />
+    <state x="1920" y="0" width="1915" height="1022" key="dock-window-2" timestamp="1612962762779">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1920" y="0" width="1915" height="1022" key="dock-window-2/0.0.1920.1040/1920.0.1920.1040/-1920.3.1920.1040@0.0.1920.1040" timestamp="1612962762779" />
+    <state x="1915" y="0" width="992" height="1047" key="dock-window-3" timestamp="1613042010116">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1915" y="0" width="992" height="1047" key="dock-window-3/0.0.1920.1040/1920.0.1920.1040/-1920.3.1920.1040@0.0.1920.1040" timestamp="1613042010116" />
+    <state x="2194" y="-18" width="2059" height="1022" maximized="true" key="dock-window-3/0.0.1920.1040/1920.0.1920.1040/-1920.3.1920.1040@1920.0.1920.1040" timestamp="1612986313706" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1612954343310">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040/-1920.3.1920.1040@0.0.1920.1040" timestamp="1612954343310" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1612879075776">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040/-1920.3.1920.1040@0.0.1920.1040" timestamp="1612879075776" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/js/functions.js</url>
+          <line>57</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/js/functions.js</url>
+          <line>338</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

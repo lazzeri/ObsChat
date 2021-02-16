@@ -60,7 +60,6 @@
             color: black;
             width: 300px;
             height: 650px;
-            background-color: gray;
             position: relative;
         }
 
@@ -275,10 +274,10 @@
             </div>
             <br>
             <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
-                    onclick="addColor('colorAdder');">+
+                    onclick="addColor('colorAdder','basic');">+
             </button>
             <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
-                    onclick="removeColor('colorAdder');">-
+                    onclick="removeColor('colorAdder','basic');">-
             </button>
         </div>
         <div id="subscriber" style="margin-top:20px;display: none">
@@ -318,10 +317,10 @@
             </div>
             <br>
             <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
-                    onclick="addColor('subColorAdder');">+
+                    onclick="addColor('subColorAdder','basic');">+
             </button>
             <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
-                    onclick="removeColor('subColorAdder');">-
+                    onclick="removeColor('subColorAdder','basic');">-
             </button>
         </div>
         <div id="mods" style="margin-top:20px;display: none">
@@ -361,10 +360,10 @@
             </div>
             <br>
             <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
-                    onclick="addColor('subColorAdder');">+
+                    onclick="addColor('subColorAdder','subscribers');">+
             </button>
             <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
-                    onclick="removeColor('subColorAdder');">-
+                    onclick="removeColor('subColorAdder','subscribers');">-
             </button>
         </div>
         <div id="superChat" style="margin-top:20px;display: none">
@@ -403,24 +402,23 @@
             </div>
             <br>
             <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
-                    onclick="addColor('superColorAdder');">+
+                    onclick="addColor('superColorAdder','superchat', );">+
             </button>
             <button style="width:40px; height: 40px; font-size: 20px; font-weight: 900"
-                    onclick="removeColor('superColorAdder');">-
+                    onclick="removeColor('superColorAdder','superchat');">-
             </button>
         </div>
-
         <div id="icons" style="margin-top:20px; display: none"></div>
         <div id="whatToShow" style="margin-top:20px; display: none"></div>
     </div>
-    <div id="test">
-        <div style="display: inline">
-            test:
-        </div>
-        <div style="display: inline">
-            testosteron
-        </div>
-    </div>
+            <div id="test">
+                <div style="display: inline">
+                    test:
+                </div>
+                <div style="display: inline">
+                    testosteron
+                </div>
+            </div>
 
 </body>
 </html>

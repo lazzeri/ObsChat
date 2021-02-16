@@ -1,4 +1,4 @@
-﻿let userName = "TRIGGA-NICK420";
+﻿let userName = "UkuLuca";
 let width = 1400;
 let height = 600;
 let down = 150;
@@ -36,6 +36,7 @@ let supColors = [];
 let supBorder = 'red'; //TODO WILL BE HEXA
 
 
+
 let goodies;
 let chatBoxes = [];
 
@@ -51,8 +52,8 @@ preposition = ["down", "into", "up", "on", "upon", "below", "above", "through", 
 async function RunCode()
 {
     startEventListeners ();
-    DownloadGifts();
-    FetchBroadcastId();
+    DownloadGifts ();
+    FetchBroadcastId ();
 }
 
 async function DownloadGifts()
@@ -176,20 +177,26 @@ function AddToChat(input, nickName, role)
     newChatBox.style.wordSpacing = wordSpacing;
     newChatBox.style.color = basicFontColor;
     newChatBox.style.fontSize = fontSize;
-    newChatBox.innerText = nickName + ": " + input;
     newChatBox.id = uuidv4 ();
+    newChatBox.style.display = "inline";
+
+    let nickNameBox = document.createElement ("div");
+    nickNameBox.style.display = "inline";
+    nickNameBox.innerText = nickName + ': ';
+    let textBox = document.createElement ("div");
+    textBox.style.display = "inline";
+    textBox.innerText = input;
+
 
     // Switch for the Roles
     switch (role)
     {
         case('basic'):
             //Font weight
-            newChatBox.style.fontWeight = getFontWeight(bCFontWeight);
-
+            newChatBox.style.fontWeight = getFontWeight (bCFontWeight);
+            nickNameBox.style.color = '#CCCCCC'//;
             //Icon
             //Colors
-
-
             break;
         case('subs'):
             break;
@@ -199,13 +206,18 @@ function AddToChat(input, nickName, role)
             break;
     }
 
+
     document.getElementById ("MainPanel").append (newChatBox);
+    document.getElementById (newChatBox.id).append (nickNameBox);
+    document.getElementById (newChatBox.id).append (textBox);
+
+
     chatBoxes.push (newChatBox);
 
 
     //This is for the chat to scroll up
     let newBoxSize = parseInt (newChatBox.offsetHeight);
-    console.log(newBoxSize)
+    console.log (newBoxSize)
 
     for (let i = 0; i < chatBoxes.length; i++)
     {
@@ -350,8 +362,38 @@ function uuidv4()
     });
 }
 
-function addColor(elemId)
+function updateColors(role)
 {
+    switch (role)
+    {
+        case('basic'):
+            let a = document.getElementById('colorAdder');
+            //bcColors.push();
+            console.log(a);
+            for (let i = 0; i < a.children.length; i++) {
+                a.children[i];
+            }
+            break;
+        case('subscribers'):
+            let b = document.getElementById('subColorAdder');
+
+            break;
+        case('mods'):
+            let m = document.getElementById('modColorAdder');
+
+            break;
+        case('superchat'):
+            let s = document.getElementById('superColorAdder');
+
+            break;
+    }
+}
+
+
+function addColor(elemId, role)
+{
+
+
     let elem = document.getElementById (elemId);
     let newColor = document.createElement ("input");
     newColor.setAttribute ("type", "color");
@@ -360,8 +402,20 @@ function addColor(elemId)
     elem.append (newColor);
 }
 
-function removeColor(elemId)
+function removeColor(elemId,role)
 {
+    switch (role)
+    {
+        case('basic'):
+            console.log('Test Deleting');
+            break;
+        case('subscribers'):
+            break;
+        case('mods'):
+            break;
+        case('superchat'):
+            break;
+    }
     let elem = document.getElementById (elemId);
     if (elem.lastElementChild != null) elem.removeChild (elem.lastElementChild);
 }
@@ -424,7 +478,9 @@ function setBasicFontColor(elem)
     basicFontColor = elem;
 }
 
-function addSimulation(){}
+function addSimulation()
+{
+}
 
 function AddChat(role)
 {
@@ -435,7 +491,7 @@ function AddChat(role)
     var rand5 = Math.floor (Math.random () * 10);
     var rand6 = Math.floor (Math.random () * 10);
     var content = "The " + adjectives[rand1] + " " + nouns[rand2] + " " + adverbs[rand3] + " " + verbs[rand4] + " because some " + nouns[rand1] + " " + adverbs[rand1] + " " + verbs[rand1] + " " + preposition[rand1] + " a " + adjectives[rand2] + " " + nouns[rand5] + " which, became a " + adjectives[rand3] + ", " + adjectives[rand4] + " " + nouns[rand6] + ".";
-    AddToChat (content.substr (0, randomNumber (8, 100)), 'TestUserName',role);
+    AddToChat (content.substr (0, randomNumber (8, 100)), 'TestUserName', role);
 }
 
 function getFontWeight(elem)

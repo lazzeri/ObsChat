@@ -1,4 +1,4 @@
-﻿let userName = "UkuLuca";
+﻿let userName = "MathewWilliamsMEDIA";
 let width = 1400;
 let height = 600;
 let down = 150;
@@ -6,6 +6,9 @@ let toTheRight = 100;
 let broadcastId;
 let userId;
 let error = false;
+
+//User Colors:
+let savedUsers = [];
 
 
 //Features Customizable Set
@@ -19,11 +22,12 @@ let wordSpacing = 0;
 let basicFontColor = '#000000';
 //Basic Chat
 let bCFontWeight = 400;
-let bcFIcons = 'None';
+let bcIcons = 'None';
 let bcColors = [];
+let bcIterator = 0;
 //Moderators
 let modFontWeight = 400;
-let modFIcons = 'None';
+let modIcons = 'None';
 let modColors = [];
 //Subscribers
 let subFontWeight = 400;
@@ -31,11 +35,16 @@ let subIcons = 'None';
 let subColors = [];
 //SuperChat
 let supFontWeight = 400;
-let supFIcons = 'None';
+let supIcons = 'None';
 let supColors = [];
-let supBorder = 'red'; //TODO WILL BE HEXA
-
-
+let borderThickness = 5;
+let borderColor = '#CCCCCC';
+let borderStyle = 'None';
+//Stuff to block
+let blockInvites = false;
+let blockCaptures = false;
+let blockFan = false;
+let blockHashtags = false;
 
 let goodies;
 let chatBoxes = [];
@@ -53,7 +62,7 @@ async function RunCode()
 {
     startEventListeners ();
     DownloadGifts ();
-    FetchBroadcastId ();
+    //FetchBroadcastId ();
 }
 
 async function DownloadGifts()
@@ -125,44 +134,47 @@ function FetchEvent()
     });
     var channel = pusher.subscribe ("public-channel_" + userId);
 
-    //Get Stickers
-    channel.bind ('onPartnerSticker', function (data)
-    {
-        if (data.message != "undefined")
-        {
-            //TODO ADD PARTNERSTICKER ACTION
-        }
-    });
 
     channel.bind ('onChat', function (data)
     {
         if (data.message !== "undefined")
         {
+            console.log (data);
             let nickName = data.message.comments[0].name;
             let input = data.message.comments[0].comment;
-            //"Set Color For Likes"
-            AddToChat (input, nickName)
+            let id = data.message.comments[0].userId;
+            let shouldSend = true;
+
+            if (blockFan)
+            {
+                if (input.includes ("I became a fan!"))
+                    shouldSend = false;
+            }
+            if (blockHashtags)
+            {
+                if (input.includes ('#'))
+                    shouldSend = false;
+            }
+            if (blockCaptures)
+            {
+                if (input.includes ("captured a moment of"))
+                    shouldSend = false;
+            }
+            if (blockInvites)
+            {
+                if (input.includes ("to this broadcast"))
+                    shouldSend = false;
+            }
+            if (shouldSend) AddToChat (input, nickName, 'normal', id)
         }
     });
 
-    //Get Gifts
-    channel.bind ('onGift', function (data)
-    {
-        if (data.message != "undefined")
-        {
-            console.log (data);
-            //The Amount of likes
-            console.log (data.message.stageGifts[0].extraData.numOfLikes)
-            let userId = data.message.stageGifts[0].userId;
-            console.log (data.message.stageGifts[0].giftId);
-        }
-    });
 }
 
 
 //-------------------------------- Animations --------------------------------//
 
-function AddToChat(input, nickName, role)
+function AddToChat(input, nickName, role, id, streamerId, crownsAmount)
 {
     let mainPanel = document.getElementById ("MainPanel");
     let newChatBox = document.createElement ("div");
@@ -188,36 +200,133 @@ function AddToChat(input, nickName, role)
     textBox.innerText = input;
 
 
+
+
+
     // Switch for the Roles
+    //Roles get weighted like this: Mod < Sub < Normal
+
     switch (role)
     {
         case('basic'):
             //Font weight
             newChatBox.style.fontWeight = getFontWeight (bCFontWeight);
-            nickNameBox.style.color = '#CCCCCC'//;
-            //Icon
             //Colors
+            if (bcColors.length > 0)
+            {
+                let randNum = Number.parseInt (randomNumber (0, bcColors.length));
+                nickNameBox.style.color = bcColors[randNum];
+            }
+            //Normal One
             break;
         case('subs'):
+            newChatBox.style.fontWeight = getFontWeight (subFontWeight);
+            if (subColors.length > 0)
+            {
+                let randNum = Number.parseInt (randomNumber (0, subColors.length));
+                nickNameBox.style.color = subColors[randNum];
+            }
             break;
+
         case('superChat'):
+            newChatBox.style.fontWeight = getFontWeight (supFontWeight);
+            if (supColors.length > 0)
+            {
+                let randNum = Number.parseInt (randomNumber (0, supColors.length));
+                nickNameBox.style.color = supColors[randNum];
+            }
+            newChatBox.style.borderWidth = borderThickness;
+            newChatBox.style.borderStyle = borderStyle;
+            newChatBox.style.borderColor = borderColor;
             break;
         case('mods'):
+            newChatBox.style.fontWeight = getFontWeight (modFontWeight);
+            //Colors
+            if (modColors.length > 0)
+            {
+                let randNum = Number.parseInt (randomNumber (0, modColors.length));
+                nickNameBox.style.color = modColors[randNum];
+            }
             break;
     }
 
+    //---------------- TODO Should be redone
+    let found = false;
+    let foundColor = '';
+    savedUsers.forEach (function (elem)
+    {
+        if (id === elem.id)
+        {
+            found = true;
+            foundColor = elem.color;
+        }
+    });
 
+    if (found)
+    {
+        nickNameBox.style.color = foundColor;
+    } else
+    {
+        savedUsers.push (new UserWithColor (id, nickNameBox.style.color));
+    }
+    //---------------------
     document.getElementById ("MainPanel").append (newChatBox);
+
+    //Add Profile Picture if wanted:
+    if (shouldAddPicture (role))
+    {
+        let profilePic = document.createElement ("div");
+        profilePic.style.height = "50px";
+        profilePic.style.width = "50px";
+        profilePic.style.backgroundSize = 'contain';
+        profilePic.style.float = 'left';
+        profilePic.style.borderRadius = '55%';
+        profilePic.style.marginRight = '7px';
+        profilePic.style.backgroundImage = "url(https://ynassets.younow.com/user/live/8026801/8026801.jpg)";
+        document.getElementById (newChatBox.id).append (profilePic);
+    }
+
+    //This is were we add the icons
+    switch (role)
+    {
+        case('basic'):
+            if (shouldAddIcon (role))
+                addIcon ('icons/Normal.png', newChatBox.id);
+            break;
+        case('subs'):
+            if (shouldAddIcon (role))
+                addIcon ('https://ynassets.younow.com/subscriptions/live/' + streamerId + '/1/badge.png', newChatBox.id);
+            break;
+        case('superChat'):
+            //We don't do anything here
+            break;
+        case('mods'):
+            if (shouldAddIcon (role))
+                addIcon ('icons/Mod.png', newChatBox.id);
+            break;
+    }
+
+    if(shouldAddIcon(role))
+    {
+        switch (crownsAmount)
+        {
+            case(0):
+                break;
+            default:
+                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                break;
+        }
+    }
+
+
+
     document.getElementById (newChatBox.id).append (nickNameBox);
     document.getElementById (newChatBox.id).append (textBox);
-
-
     chatBoxes.push (newChatBox);
 
 
     //This is for the chat to scroll up
     let newBoxSize = parseInt (newChatBox.offsetHeight);
-    console.log (newBoxSize)
 
     for (let i = 0; i < chatBoxes.length; i++)
     {
@@ -237,6 +346,58 @@ function AddToChat(input, nickName, role)
     }
 
 }
+
+function shouldAddPicture(role)
+{
+    //Icon
+    switch (role)
+    {
+        case 'basic':
+            if (bcIcons.localeCompare ('Icons and Profile Pictures') === 0 || bcIcons.localeCompare ('Profile Pictures') === 0)
+                return true;
+            break;
+        case 'subs':
+            if (subIcons.localeCompare ('Icons and Profile Pictures') === 0 || bcIcons.localeCompare ('Profile Pictures') === 0)
+                return true;
+            break;
+        case 'superChat':
+            if (supIcons.localeCompare ('Icons and Profile Pictures') === 0 || bcIcons.localeCompare ('Profile Pictures') === 0)
+                return true;
+            break;
+        case 'mods':
+            if (modIcons.localeCompare ('Icons and Profile Pictures') === 0 || bcIcons.localeCompare ('Profile Pictures') === 0)
+                return true;
+            break;
+        default:
+            return false;
+    }
+    return false;
+}
+
+function shouldAddIcon(role)
+{
+
+    //Icon
+    switch (role)
+    {
+        case 'basic':
+            if (bcIcons.localeCompare ('Icons and Profile Pictures') === 0 || bcIcons.localeCompare ('Icons') === 0)
+                return true;
+            break;
+        case 'subs':
+            if (subIcons.localeCompare ('Icons and Profile Pictures') === 0 || bcIcons.localeCompare ('Icons') === 0)
+                return true;
+            break;
+        case 'mods':
+            if (modIcons.localeCompare ('Icons and Profile Pictures') === 0 || bcIcons.localeCompare ('Icons') === 0)
+                return true;
+            break;
+        default:
+            return false;
+    }
+    return false;
+}
+
 
 function ChangeChatWidth(i)
 {
@@ -279,44 +440,103 @@ function startEventListeners()
         animationElements[i].addEventListener ('click', changeAnimation, false);
     }
 
+    //Eventlistener for padding
     document.getElementById ("padding").addEventListener ("change", function ()
     {
         padding = this.value;
     })
 
+    //For fontsize
     document.getElementById ("fontSize").addEventListener ("change", function ()
     {
         fontSize = this.value;
     })
 
-    //--------------
-    let bChatIcon = document.getElementsByClassName ("basicChatIconItem");
-
-    let changeBChatIcon = function ()
+    //For fontsize
+    document.getElementById ("fontSize").addEventListener ("change", function ()
     {
-        document.getElementById ('dropDownBChatIcon').innerText = this.innerText;
+        fontSize = this.value;
+    })
+
+
+    let dropDownElements = document.getElementsByClassName ("dropDownItem");
+
+    function changeElementFonts(elem)
+    {
+        elem.parentElement.parentElement.children[0].innerText = elem.innerText;
+
+        switch (elem.parentElement.id)
+        {
+            case 'bcChatWeight':
+                supFontWeight = elem.innerText;
+                break;
+
+            case 'bcIcon':
+                bcIcons = elem.innerText;
+                break;
+
+            case 'subChatWeight':
+                subFontWeight = elem.innerText;
+                break;
+
+            case 'subIcon':
+                subIcons = elem.innerText;
+                break;
+
+            case 'modChatWeight':
+                modFontWeight = elem.innerText;
+                break;
+
+            case 'modIcon':
+                modIcons = elem.innerText;
+                break;
+
+            case 'superChatWeight':
+                supFontWeight = elem.innerText;
+                break;
+
+            case'superIcon':
+                supIcons = elem.innerText;
+                break;
+
+            case'borderStyle':
+                borderStyle = elem.innerText;
+                break;
+
+            case'borderWidth':
+                borderThickness = elem.innerText;
+                break;
+
+
+            default:
+                console.log ('Couldn\'t find id: ' + elem.parentElement.id);
+        }
+
     };
 
-    for (let i = 0; i < bChatIcon.length; i++)
+    for (let i = 0; i < dropDownElements.length; i++)
     {
-        bChatIcon[i].addEventListener ('click', changeBChatIcon, false);
+        dropDownElements[i].addEventListener ('click', function ()
+        {
+            changeElementFonts (dropDownElements[i])
+        }, false);
     }
-    //--------------
-    //--------------
-    let bChatWeight = document.getElementsByClassName ("dropDownBasicChatSelectionItem");
 
-    let changeBChatWeight = function ()
-    {
-        document.getElementById ('dropDownBasicChatIcon').innerText = this.innerText;
-        bCFontWeight = this.innerText;
-    };
+}
 
-    for (let i = 0; i < bChatWeight.length; i++)
-    {
-        bChatWeight[i].addEventListener ('click', changeBChatWeight, false);
-    }
-    //--------------
 
+function addIcon(url, chatBoxId)
+{
+    let icon = document.createElement ("div");
+    icon.style.height = "15px";
+    icon.style.width = "15px";
+    icon.style.marginTop = "2px";
+    icon.style.backgroundSize = 'contain';
+    icon.style.float = 'left';
+    icon.style.marginRight = '2px';
+    icon.style.backgroundImage = "url(" + url + ")";
+
+    document.getElementById (chatBoxId).append (icon);
 
 }
 
@@ -367,57 +587,65 @@ function updateColors(role)
     switch (role)
     {
         case('basic'):
-            let a = document.getElementById('colorAdder');
-            //bcColors.push();
-            console.log(a);
-            for (let i = 0; i < a.children.length; i++) {
-                a.children[i];
+            let a = document.getElementById ('colorAdder');
+            bcColors = [];
+            for (let i = 0; i < a.children.length; i++)
+            {
+                bcColors.push (a.children[i].value);
             }
             break;
         case('subscribers'):
-            let b = document.getElementById('subColorAdder');
-
+            let b = document.getElementById ('subColorAdder');
+            subColors = [];
+            for (let i = 0; i < b.children.length; i++)
+            {
+                subColors.push (b.children[i].value);
+            }
             break;
         case('mods'):
-            let m = document.getElementById('modColorAdder');
-
+            let m = document.getElementById ('modColorAdder');
+            modColors = [];
+            for (let i = 0; i < m.children.length; i++)
+            {
+                modColors.push (m.children[i].value);
+            }
             break;
         case('superchat'):
-            let s = document.getElementById('superColorAdder');
-
+            let s = document.getElementById ('superColorAdder');
+            supColors = [];
+            for (let i = 0; i < s.children.length; i++)
+            {
+                supColors.push (s.children[i].value);
+            }
             break;
+        case('Grid'):
+        {
+            borderColor = document.getElementById ('borderColor').value;
+        }
     }
 }
 
 
 function addColor(elemId, role)
 {
-
-
     let elem = document.getElementById (elemId);
     let newColor = document.createElement ("input");
     newColor.setAttribute ("type", "color");
+    newColor.addEventListener ('change', function ()
+    {
+        updateColors (role)
+    }, false);
     newColor.style.width = '40px';
     newColor.style.height = '40px';
     elem.append (newColor);
+    updateColors (role);
 }
 
-function removeColor(elemId,role)
+function removeColor(elemId, role)
 {
-    switch (role)
-    {
-        case('basic'):
-            console.log('Test Deleting');
-            break;
-        case('subscribers'):
-            break;
-        case('mods'):
-            break;
-        case('superchat'):
-            break;
-    }
     let elem = document.getElementById (elemId);
     if (elem.lastElementChild != null) elem.removeChild (elem.lastElementChild);
+    updateColors (role);
 }
 
 function resetSettings()
@@ -427,7 +655,6 @@ function resetSettings()
     document.getElementById ('subscriber').style.display = 'none';
     document.getElementById ('mods').style.display = 'none';
     document.getElementById ('superChat').style.display = 'none';
-    document.getElementById ('icons').style.display = 'none';
     document.getElementById ('whatToShow').style.display = 'none';
 
 }
@@ -455,13 +682,33 @@ function showFolder(name)
         case('Icons'):
             document.getElementById ('icons').style.display = 'block';
             break;
-        case('whatToShow'):
-            document.getElementById ('icons').style.display = 'block';
+        case('What to Block'):
+            document.getElementById ('whatToShow').style.display = 'block';
             break;
     }
 
 
 }
+
+function setBlocks(elem)
+{
+    switch (elem.id)
+    {
+        case 'showInvites':
+            blockInvites = elem.checked;
+            break;
+        case 'showCaptures':
+            blockCaptures = elem.checked;
+            break;
+        case 'showFan':
+            blockFan = elem.checked;
+            break;
+        case 'showHashtags':
+            blockHashtags = elem.checked;
+            break;
+    }
+}
+
 
 function setLetterSpacing(elem)
 {
@@ -478,11 +725,7 @@ function setBasicFontColor(elem)
     basicFontColor = elem;
 }
 
-function addSimulation()
-{
-}
-
-function AddChat(role)
+function AddChat(role, id)
 {
     var rand1 = Math.floor (Math.random () * 10);
     var rand2 = Math.floor (Math.random () * 10);
@@ -491,7 +734,7 @@ function AddChat(role)
     var rand5 = Math.floor (Math.random () * 10);
     var rand6 = Math.floor (Math.random () * 10);
     var content = "The " + adjectives[rand1] + " " + nouns[rand2] + " " + adverbs[rand3] + " " + verbs[rand4] + " because some " + nouns[rand1] + " " + adverbs[rand1] + " " + verbs[rand1] + " " + preposition[rand1] + " a " + adjectives[rand2] + " " + nouns[rand5] + " which, became a " + adjectives[rand3] + ", " + adjectives[rand4] + " " + nouns[rand6] + ".";
-    AddToChat (content.substr (0, randomNumber (8, 100)), 'TestUserName', role);
+    AddToChat ('I became a fan!I became a fan!I became a fan!', 'TestUserName', role, id, 7081785, 1);
 }
 
 function getFontWeight(elem)
@@ -507,4 +750,10 @@ function getFontWeight(elem)
             return 700;
             break;
     }
+}
+
+function UserWithColor(id, color)
+{
+    this.id = id;
+    this.color = color;
 }

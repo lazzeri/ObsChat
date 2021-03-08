@@ -1,4 +1,4 @@
-﻿let userName = "MathewWilliamsMEDIA";
+﻿let streamerName = "MathewWilliamsMEDIA";
 let width = 1400;
 let height = 600;
 let down = 150;
@@ -62,7 +62,7 @@ async function RunCode()
 {
     startEventListeners ();
     DownloadGifts ();
-    //FetchBroadcastId ();
+    FetchBroadcastId ();
 }
 
 async function DownloadGifts()
@@ -90,7 +90,7 @@ async function FetchBroadcastId()
 {
     console.log ("Fetching Broadcast....");
     var proxyUrl = 'https://younow-cors-header.herokuapp.com/?q=',
-        targetUrl = 'https://api.younow.com/php/api/broadcast/info/curId=0/user=' + userName;
+        targetUrl = 'https://api.younow.com/php/api/broadcast/info/curId=0/user=' + streamerName;
     var json = fetch (proxyUrl + targetUrl)
         .then (blob => blob.json ())
         .then (data =>
@@ -165,7 +165,7 @@ function FetchEvent()
                 if (input.includes ("to this broadcast"))
                     shouldSend = false;
             }
-            if (shouldSend) AddToChat (input, nickName, 'normal', id)
+            if (shouldSend) AddToChat (input, nickName, 'basic', id)
         }
     });
 
@@ -176,6 +176,10 @@ function FetchEvent()
 
 function AddToChat(input, nickName, role, id, streamerId, crownsAmount)
 {
+    //First we create a test element for the height so i can set the height of the image the same, this is very hacky cus i don't care about js
+    let testProduct = document.createElement("div");
+
+
     let mainPanel = document.getElementById ("MainPanel");
     let newChatBox = document.createElement ("div");
     let maxPanelHeight = mainPanel.offsetHeight;
@@ -194,13 +198,10 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount)
 
     let nickNameBox = document.createElement ("div");
     nickNameBox.style.display = "inline";
-    nickNameBox.innerText = nickName + ': ';
+    nickNameBox.innerText = nickName + ': \n';
     let textBox = document.createElement ("div");
     textBox.style.display = "inline";
     textBox.innerText = input;
-
-
-
 
 
     // Switch for the Roles
@@ -227,7 +228,6 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount)
                 nickNameBox.style.color = subColors[randNum];
             }
             break;
-
         case('superChat'):
             newChatBox.style.fontWeight = getFontWeight (supFontWeight);
             if (supColors.length > 0)
@@ -272,18 +272,33 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount)
     //---------------------
     document.getElementById ("MainPanel").append (newChatBox);
 
-    //Add Profile Picture if wanted:
+
+    document.getElementById (newChatBox.id).append (nickNameBox);
+    document.getElementById (newChatBox.id).append (textBox);
+    let lul = parseInt (document.getElementById (newChatBox.id).offsetHeight);
+    console.log ('LUL SNACKED: ' + lul);
+    document.getElementById(newChatBox.id).removeChild(nickNameBox);
+    document.getElementById(newChatBox.id).removeChild(textBox);
+
+        //Add Profile Picture if wanted:
     if (shouldAddPicture (role))
     {
+        console.log (maxPanelHeight);
+        let fillerDiv = document.createElement ("div");
+        fillerDiv.style.width = "50px";
+        fillerDiv.style.height = (lul + 10)+ "px";
+        fillerDiv.style.float = "left";
+        fillerDiv.style.marginRight = "7px";
         let profilePic = document.createElement ("div");
         profilePic.style.height = "50px";
         profilePic.style.width = "50px";
         profilePic.style.backgroundSize = 'contain';
-        profilePic.style.float = 'left';
         profilePic.style.borderRadius = '55%';
-        profilePic.style.marginRight = '7px';
         profilePic.style.backgroundImage = "url(https://ynassets.younow.com/user/live/8026801/8026801.jpg)";
-        document.getElementById (newChatBox.id).append (profilePic);
+
+        fillerDiv.append (profilePic);
+        document.getElementById (newChatBox.id).append (fillerDiv);
+
     }
 
     //This is were we add the icons
@@ -306,7 +321,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount)
             break;
     }
 
-    if(shouldAddIcon(role))
+    if (shouldAddIcon (role))
     {
         switch (crownsAmount)
         {
@@ -319,7 +334,6 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount)
     }
 
 
-
     document.getElementById (newChatBox.id).append (nickNameBox);
     document.getElementById (newChatBox.id).append (textBox);
     chatBoxes.push (newChatBox);
@@ -327,7 +341,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount)
 
     //This is for the chat to scroll up
     let newBoxSize = parseInt (newChatBox.offsetHeight);
-
+    console.log ('TRUTH: ' + newBoxSize);
     for (let i = 0; i < chatBoxes.length; i++)
     {
         if (chatBoxes[i].getBoundingClientRect ().top < 70)
@@ -357,15 +371,15 @@ function shouldAddPicture(role)
                 return true;
             break;
         case 'subs':
-            if (subIcons.localeCompare ('Icons and Profile Pictures') === 0 || bcIcons.localeCompare ('Profile Pictures') === 0)
+            if (subIcons.localeCompare ('Icons and Profile Pictures') === 0 || supIcons.localeCompare ('Profile Pictures') === 0)
                 return true;
             break;
         case 'superChat':
-            if (supIcons.localeCompare ('Icons and Profile Pictures') === 0 || bcIcons.localeCompare ('Profile Pictures') === 0)
+            if (supIcons.localeCompare ('Profile Pictures') === 0)
                 return true;
             break;
         case 'mods':
-            if (modIcons.localeCompare ('Icons and Profile Pictures') === 0 || bcIcons.localeCompare ('Profile Pictures') === 0)
+            if (modIcons.localeCompare ('Icons and Profile Pictures') === 0 || modIcons.localeCompare ('Profile Pictures') === 0)
                 return true;
             break;
         default:
@@ -398,6 +412,10 @@ function shouldAddIcon(role)
     return false;
 }
 
+function setName(name)
+{
+    streamerName = name;
+}
 
 function ChangeChatWidth(i)
 {
@@ -521,7 +539,6 @@ function startEventListeners()
             changeElementFonts (dropDownElements[i])
         }, false);
     }
-
 }
 
 
@@ -610,7 +627,7 @@ function updateColors(role)
                 modColors.push (m.children[i].value);
             }
             break;
-        case('superchat'):
+        case('superChat'):
             let s = document.getElementById ('superColorAdder');
             supColors = [];
             for (let i = 0; i < s.children.length; i++)
@@ -727,6 +744,7 @@ function setBasicFontColor(elem)
 
 function AddChat(role, id)
 {
+    let randomNum = randomNumber (0, 1000);
     var rand1 = Math.floor (Math.random () * 10);
     var rand2 = Math.floor (Math.random () * 10);
     var rand3 = Math.floor (Math.random () * 10);
@@ -734,7 +752,7 @@ function AddChat(role, id)
     var rand5 = Math.floor (Math.random () * 10);
     var rand6 = Math.floor (Math.random () * 10);
     var content = "The " + adjectives[rand1] + " " + nouns[rand2] + " " + adverbs[rand3] + " " + verbs[rand4] + " because some " + nouns[rand1] + " " + adverbs[rand1] + " " + verbs[rand1] + " " + preposition[rand1] + " a " + adjectives[rand2] + " " + nouns[rand5] + " which, became a " + adjectives[rand3] + ", " + adjectives[rand4] + " " + nouns[rand6] + ".";
-    AddToChat ('I became a fan!I became a fan!I became a fan!', 'TestUserName', role, id, 7081785, 1);
+    AddToChat (content, 'TestUserName', role, randomNum, 7081785, 1);
 }
 
 function getFontWeight(elem)
@@ -742,12 +760,13 @@ function getFontWeight(elem)
     switch (elem)
     {
         case('Light'):
-            return 200;
+            return 300;
+            break;
         case('Medium'):
-            return 450;
+            return 600;
             break;
         case('Bold'):
-            return 700;
+            return 900;
             break;
     }
 }

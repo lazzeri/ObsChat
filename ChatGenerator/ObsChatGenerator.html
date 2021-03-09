@@ -59,7 +59,7 @@
             font-family: Arial;
             color: black;
             width: 300px;
-            height: 650px;
+            height: 900px;
             position: relative;
         }
 
@@ -141,23 +141,6 @@
 </head>
 <body onload="RunCode();">
 <div id="MainPanel">
-</div>
-<div id="buttonGroup" class="grid-container" style="width:200px; margin-left: 30px">
-    <button class="btn btn-primary" style="position: relative; margin-top:10px" onclick="AddChat('basic',123);  ">Add
-        Normal
-        Chat
-    </button>
-    <button class="btn btn-primary" style="position: relative;margin-top:10px" onclick="AddChat('subs',234 );">Add
-        Subscribers Chat
-    </button>
-    <button class="btn btn-primary" style="position: relative;margin-top:10px" onclick="AddChat('mods',123);">Add Mod Chat
-    </button>
-    <button class="btn btn-primary" style="position: relative;margin-top:10px" onclick="AddChat('superChat',123);">Add
-        SuperChat
-    </button>
-
-    <button class="btn btn-warning" style="position: relative; margin-top: 10px" onclick="ResetChat();">Reset Chat
-    </button>
 </div>
 <div id="ControlPanel">
     <div id="GridContainer" class="grid-container">
@@ -398,6 +381,7 @@
                 <div class="dropdown-menu" id="superIcon">
                     <a class="dropdown-item dropDownItem">None</a>
                     <a class="dropdown-item dropDownItem">Profile Pictures</a>
+                    <a class="dropdown-item dropDownItem">Icons and Profile Pictures</a>
                 </div>
             </div>
             <label class="center subTitle">Select Username Colors:</label>
@@ -469,10 +453,40 @@
                     Messages containing a #
                 </label>
             </div>
-
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="showAtSigns" onchange="setBlocks(this)">
+                <label class="form-check-label" for="showHashtags">
+                    Messages containing a @ sign not directed on the streamer
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="blockSuperMessages" onchange="setBlocks(this)">
+                <label class="form-check-label" for="showHashtags">
+                    Block SuperChat Messages
+                </label>
+            </div>
 
         </div>
-    </div>
 
+    </div>
+    <div id="buttonGroup" class="grid-container" style="width:200px; position: absolute; top:10px; left: 350px">
+        <button class="btn btn-primary" style="position: relative; margin-top:10px" onclick="AddChat('basic',7081785,7081785,1,1,true);  ">Add
+            Normal
+            Chat
+        </button>
+        <button class="btn btn-primary" style="position: relative;margin-top:10px" onclick="AddChat('subs',7081785,7081785,2,1,true);">Add
+            Subscribers Chat
+        </button>
+        <button class="btn btn-primary" style="position: relative;margin-top:10px" onclick="AddChat('mods',7081785,7081785,3,1,true);">Add Mod Chat
+        </button>
+        <button class="btn btn-primary" style="position: relative;margin-top:10px" onclick="AddChat('superChat',7081785,7081785,4,1,true);">Add
+            SuperChat
+        </button>
+        <button class="btn btn-warning" style="position: relative;margin-top:10px" onclick="FetchBroadcastId();">Start
+            LiveChat
+        </button>
+        <button class="btn btn-warning" style="position: relative; margin-top: 10px" onclick="ResetChat();">Reset Chat
+        </button>
+    </div>
 </body>
 </html>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="69182719-84cf-4dc9-996b-7c2e5ba3fe60" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/ChatGenerator/ObsChatGenerator.html" beforeDir="false" afterPath="$PROJECT_DIR$/ChatGenerator/ObsChatGenerator.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChatGenerator/js/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/ChatGenerator/js/functions.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1oYjAkEsWo3iZCxG8OnVtQN1ABV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="69182719-84cf-4dc9-996b-7c2e5ba3fe60" name="Default Changelist" comment="" />
+      <created>1613470277228</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1613470277228</updated>
+      <workItem from="1613470278949" duration="5930000" />
+      <workItem from="1613722815679" duration="7837000" />
+      <workItem from="1614803346431" duration="6398000" />
+      <workItem from="1614848969144" duration="20268000" />
+      <workItem from="1614937135666" duration="8283000" />
+      <workItem from="1615153388976" duration="5002000" />
+      <workItem from="1615196741181" duration="4529000" />
+      <workItem from="1615222482919" duration="4675000" />
+      <workItem from="1615237043521" duration="10951000" />
+      <workItem from="1615279445622" duration="12877000" />
+      <workItem from="1615324098458" duration="1640000" />
+    </task>
+    <task id="LOCAL-00001" summary="Splitting text to only put color on nickname">
+      <created>1613503580577</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1613503580577</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Close to finish profile icons">
+      <created>1615158594174</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1615158594174</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fix Bug For Picture Assignment,&#10;Add Data for Mods for Superchat,Make Chat Ids Random, Finally fix error to receive all messages">
+      <created>1615324262837</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1615324262837</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Splitting text to only put color on nickname" />
+    <MESSAGE value="Close to finish profile icons" />
+    <MESSAGE value="Fix Bug For Picture Assignment,&#10;Add Data for Mods for Superchat,Make Chat Ids Random, Finally fix error to receive all messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix Bug For Picture Assignment,&#10;Add Data for Mods for Superchat,Make Chat Ids Random, Finally fix error to receive all messages" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2381" y="165" key="SettingsEditor" timestamp="1614806013515">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2381" y="165" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040/-1920.3.1920.1040@0.0.1920.1040" timestamp="1614806013515" />
+    <state width="498" height="398" key="SwitcherDM" timestamp="1614884525862">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="498" height="398" key="SwitcherDM/0.0.1920.1040/1920.7.1920.1040@0.0.1920.1040" timestamp="1614884525862" />
+    <state x="552" y="249" key="Vcs.Push.Dialog.v2" timestamp="1615324267378">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="249" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040/-1920.3.1920.1040@0.0.1920.1040" timestamp="1615324267378" />
+    <state x="1913" y="0" width="974" height="1047" key="dock-window-1" timestamp="1615324367662">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1952" y="-13" width="1441" height="992" key="dock-window-1/0.0.1920.1040/-1920.3.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1613758263713" />
+    <state x="1913" y="0" width="974" height="1047" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.3.1920.1040@0.0.1920.1040" timestamp="1615324367662" />
+    <state x="268" y="-24" width="1441" height="992" maximized="true" key="dock-window-1/0.0.1920.1040/1920.0.1920.1040/-1920.3.1920.1040@1920.0.1920.1040" timestamp="1613472683144" />
+    <state x="547" y="-8" width="878" height="992" maximized="true" key="dock-window-1/0.0.1920.1040/1920.7.1920.1040@0.0.1920.1040" timestamp="1615307680347" />
+    <state x="547" y="-8" width="878" height="992" key="dock-window-1/0.0.1920.1040/1920.7.1920.1040@1920.7.1920.1040" timestamp="1615294820636" />
+    <state x="-7" y="0" width="974" height="1047" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1615202658037" />
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1615251872132">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040/1920.7.1920.1040@0.0.1920.1040" timestamp="1615251872132" />
+    <state x="623" y="225" width="672" height="676" key="search.everywhere.popup" timestamp="1615251943721">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="676" key="search.everywhere.popup/0.0.1920.1040/1920.7.1920.1040@0.0.1920.1040" timestamp="1615251943721" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/ChatGenerator/js/functions.js</url>
+          <line>692</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/ChatGenerator/js/functions.js</url>
+          <line>268</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/ChatGenerator/js/functions.js</url>
+          <line>236</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

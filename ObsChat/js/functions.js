@@ -49,6 +49,7 @@ let blockFan;
 let blockHashtags;
 let showAtSigns;
 let blockSuperMessages;
+let nicknameThickness;
 
 
 
@@ -95,6 +96,7 @@ function setData()
     blockHashtags = mydata[0].blockHashtags;
     showAtSigns = mydata[0].showAtSigns;
     blockSuperMessages = mydata[0].blockSuperMessages;
+    nicknameThickness = mydata[0].nicknameThickness;
 
 }
 
@@ -313,9 +315,10 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     newChatBox.style.display = "inline";
 
     let nickNameBox = document.createElement ("div");
-    nickNameBox.style.fontSize = 15 + "px";
+    nickNameBox.style.fontSize = 17 + "px";
     nickNameBox.style.display = "inline";
     nickNameBox.innerText = nickName + ': \n';
+    nickNameBox.style.fontWeight = getFontWeight (nicknameThickness);
     let textBox = document.createElement ("div");
 
     textBox.style.display = "inline";
@@ -367,41 +370,24 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
             break;
     }
 
-    //---------------- TODO Should be redone
-    let found = false;
-    let foundColor = '';
-    savedUsers.forEach (function (elem)
-    {
-        if (id === elem.id)
-        {
-            found = true;
-            foundColor = elem.color;
-        }
-    });
 
-    if (found)
-    {
-        nickNameBox.style.color = foundColor;
-    } else
-    {
-        savedUsers.push (new UserWithColor (id, nickNameBox.style.color));
-    }
     //---------------------
     document.getElementById ("MainPanel").append (newChatBox);
-
-
     document.getElementById (newChatBox.id).append (nickNameBox);
     document.getElementById (newChatBox.id).append (textBox);
     let checkBoxHeight = parseInt (document.getElementById (newChatBox.id).offsetHeight);
     document.getElementById (newChatBox.id).removeChild (nickNameBox);
     document.getElementById (newChatBox.id).removeChild (textBox);
 
+    let fillerDiv;
     //Add Profile Picture if wanted:
     if (shouldAddPicture (role))
     {
-        let fillerDiv = document.createElement ("div");
+        fillerDiv = document.createElement ("div");
         fillerDiv.style.width = "50px";
-        fillerDiv.style.height = (checkBoxHeight + 10) + "px";
+        let filler = 30;
+
+        fillerDiv.style.height = (checkBoxHeight + filler) + "px";
         fillerDiv.style.float = "left";
         fillerDiv.style.marginRight = "7px";
         let profilePic = document.createElement ("div");
@@ -423,7 +409,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
             //Can be sub can not be mod
             if (shouldAddIcon (role))
             {
-                addIcon ('icons/Normal.png', newChatBox.id);
+                addIcon ('icons/Normal.svg', newChatBox.id);
                 if (isSub === 1)
                     addIcon ('https://ynassets.younow.com/subscriptions/live/' + streamerId + '/1/badge.png', newChatBox.id);
             }
@@ -439,7 +425,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
             {
                 console.log (isMod + " " + isSub);
                 if (isMod)
-                    addIcon ('icons/Mod.png', newChatBox.id);
+                    addIcon ('icons/Mod.svg', newChatBox.id,20,17);
                 if (isSub === 1)
                     addIcon ('https://ynassets.younow.com/subscriptions/live/' + streamerId + '/1/badge.png', newChatBox.id);
             }
@@ -448,7 +434,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
         case('mods'):
             if (shouldAddIcon (role))
             {
-                addIcon ('icons/Mod.png', newChatBox.id);
+                addIcon ('icons/Mod.svg', newChatBox.id,20,17);
                 if (isSub === 1)
                     addIcon ('https://ynassets.younow.com/subscriptions/live/' + streamerId + '/1/badge.png', newChatBox.id);
 
@@ -461,28 +447,28 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
         switch (crownsAmount)
         {
             case(1):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             case(2):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             case(3):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             case(4):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             case(5):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             case(6):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             case(7):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             case(8):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             default:
                 break;
@@ -493,6 +479,9 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     document.getElementById (newChatBox.id).append (nickNameBox);
     document.getElementById (newChatBox.id).append (textBox);
     chatBoxes.push (newChatBox);
+
+    if (shouldAddPicture (role))
+        fillerDiv.style.height = (parseInt (document.getElementById (newChatBox.id).offsetHeight)+10)+ "px";
 
 
     //This is for the chat to scroll up
@@ -588,11 +577,11 @@ function ChangeChatWidth(i)
 
 
 
-function addIcon(url, chatBoxId)
+function addIcon(url, chatBoxId,height = 21,width = 21)
 {
     let icon = document.createElement ("div");
-    icon.style.height = "20px";
-    icon.style.width = "20px";
+    icon.style.height = height + "px";
+    icon.style.width = width + "px";
     icon.style.marginTop = "2px";
     icon.style.backgroundSize = 'contain';
     icon.style.float = 'left';

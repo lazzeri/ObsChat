@@ -49,6 +49,7 @@ let blockFan = false;
 let blockHashtags = false;
 let showAtSigns = false;
 let blockSuperMessages = false;
+let nicknameThickness = 'None';
 
 
 //Random Setences
@@ -254,9 +255,10 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     newChatBox.style.display = "inline";
 
     let nickNameBox = document.createElement ("div");
-    nickNameBox.style.fontSize = 15 + "px";
+    nickNameBox.style.fontSize = 17 + "px";
     nickNameBox.style.display = "inline";
     nickNameBox.innerText = nickName + ': \n';
+    nickNameBox.style.fontWeight = getFontWeight (nicknameThickness);
     let textBox = document.createElement ("div");
 
     textBox.style.display = "inline";
@@ -347,7 +349,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
             //Can be sub can not be mod
             if (shouldAddIcon (role))
             {
-                addIcon ('icons/Normal.png', newChatBox.id);
+                addIcon ('icons/Normal.svg', newChatBox.id);
                 if (isSub === 1)
                     addIcon ('https://ynassets.younow.com/subscriptions/live/' + streamerId + '/1/badge.png', newChatBox.id);
             }
@@ -363,7 +365,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
             {
                 console.log (isMod + " " + isSub);
                 if (isMod)
-                    addIcon ('icons/Mod.png', newChatBox.id);
+                    addIcon ('icons/Mod.svg', newChatBox.id,20,17);
                 if (isSub === 1)
                     addIcon ('https://ynassets.younow.com/subscriptions/live/' + streamerId + '/1/badge.png', newChatBox.id);
             }
@@ -372,7 +374,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
         case('mods'):
             if (shouldAddIcon (role))
             {
-                addIcon ('icons/Mod.png', newChatBox.id);
+                addIcon ('icons/Mod.svg', newChatBox.id,20,17);
                 if (isSub === 1)
                     addIcon ('https://ynassets.younow.com/subscriptions/live/' + streamerId + '/1/badge.png', newChatBox.id);
 
@@ -385,28 +387,28 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
         switch (crownsAmount)
         {
             case(1):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             case(2):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             case(3):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             case(4):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             case(5):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             case(6):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             case(7):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             case(8):
-                addIcon ('icons/Crown' + crownsAmount + '.png', newChatBox.id);
+                addIcon ('icons/Crown' + crownsAmount + '.svg', newChatBox.id);
                 break;
             default:
                 break;
@@ -617,6 +619,10 @@ function startEventListeners()
                 borderThickness = elem.innerText;
                 break;
 
+            case 'nicknameThickness':
+                nicknameThickness = elem.innerText;
+                break;
+
 
             default:
                 console.log ('Couldn\'t find id: ' + elem.parentElement.id);
@@ -634,11 +640,11 @@ function startEventListeners()
 }
 
 
-function addIcon(url, chatBoxId)
+function addIcon(url, chatBoxId,height = 21,width = 21)
 {
     let icon = document.createElement ("div");
-    icon.style.height = "20px";
-    icon.style.width = "20px";
+    icon.style.height = height + "px";
+    icon.style.width = width + "px";
     icon.style.marginTop = "2px";
     icon.style.backgroundSize = 'contain';
     icon.style.float = 'left';
@@ -1018,7 +1024,8 @@ function Export()
                     "blockFan": blockFan,
                     "blockHashtags": blockHashtags,
                     "showAtSigns": showAtSigns,
-                    "blockSuperMessages": blockSuperMessages
+                    "blockSuperMessages": blockSuperMessages,
+                    "nicknameThickness" : nicknameThickness
                 };
                 let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent ('data = \'[' + JSON.stringify (jsonData) + ']\';');
                 let dlAnchorElem = document.getElementById ('downloadAnchorElem');

@@ -103,18 +103,22 @@ function setData()
 async function RunCode()
 {
     setData();
+    AddToChat("Connecting to Database..", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
+    await DownloadGifts ();
+    await FetchBroadcastId ();
+    await updateModsOverTime ();
 
-
-    startEventListeners ();
-    DownloadGifts ();
-    updateModsOverTime ();
 }
 
 //subscriptionType
 async function updateModsOverTime()
 {
-    await sleep (10000);
-    updateMods (streamerName);
+    while(true)
+    {
+        await sleep (10000);
+        console.log('bang');
+        updateMods (streamerName);
+    }
 }
 
 async function DownloadGifts()
@@ -133,6 +137,8 @@ async function DownloadGifts()
 async function Retry()
 {
     console.log ("Retrying in 5 seconds");
+    AddToChat("Retrying in 5 seconds", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
+
     await sleep (5000);
     error = false;
     FetchBroadcastId ();
@@ -148,14 +154,22 @@ async function FetchBroadcastId()
         .then (data =>
         {
             json = JSON.stringify (data, null, 2);
-            var done = JSON.parse (json);
+            let done = JSON.parse (json);
+            console.log(done.errorCode);
             if (json.length < 1)
             {
                 console.log ("No Data Found");
                 error = true;
-            } else if (done.errorCode != 0)
+            } else if (done.errorCode === 102)
             {
-                console.log ("User not online or not found");
+                AddToChat("This user does not exist, please go check the Username input in the GeneratedOutput.json", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
+                error = true;
+            }
+            else if (done.errorCode !== 0)
+            {
+                console.log ("User not online..");
+                AddToChat("User is not online", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
+
                 error = true;
             }
             if (error)
@@ -168,6 +182,8 @@ async function FetchBroadcastId()
                 userId = done.userId;
                 broadcastId = done.broadcastId;
                 console.log ("Data Found");
+                AddToChat("Successfully  connected", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
+
                 FetchEvent ();
                 return;
             }
@@ -570,125 +586,6 @@ function ChangeChatWidth(i)
     elem.style.width = i + 'px';
 }
 
-function startEventListeners()
-{
-    //Event Listener for Chatwidth
-    document.getElementById ("chatWidth").addEventListener ("change", function ()
-    {
-        ChangeChatWidth (this.value);
-        chatWidth = this.value;
-    })
-
-    //Event Listener for changing Font
-    let elements = document.getElementsByClassName ("fontSelection");
-
-    let changeFont = function ()
-    {
-        document.getElementById ('dropDownFont').innerText = this.innerText;
-        fontFamily = this.style.fontFamily;
-    };
-
-    for (let i = 0; i < elements.length; i++)
-    {
-        elements[i].addEventListener ('click', changeFont, false);
-    }
-
-    //Event Listener for changing Font
-    let animationElements = document.getElementsByClassName ("dropDownAnimationSelection");
-
-    let changeAnimation = function ()
-    {
-        document.getElementById ('dropDownAnimationSelection').innerText = this.innerText;
-        animation = this.innerText;
-    };
-
-    for (let i = 0; i < animationElements.length; i++)
-    {
-        animationElements[i].addEventListener ('click', changeAnimation, false);
-    }
-
-    //Eventlistener for padding
-    document.getElementById ("padding").addEventListener ("change", function ()
-    {
-        padding = this.value;
-    })
-
-    //For fontsize
-    document.getElementById ("fontSize").addEventListener ("change", function ()
-    {
-        fontSize = this.value;
-    })
-
-    //For fontsize
-    document.getElementById ("fontSize").addEventListener ("change", function ()
-    {
-        fontSize = this.value;
-    })
-
-
-    let dropDownElements = document.getElementsByClassName ("dropDownItem");
-
-    function changeElementFonts(elem)
-    {
-        elem.parentElement.parentElement.children[0].innerText = elem.innerText;
-
-        switch (elem.parentElement.id)
-        {
-            case 'bcChatWeight':
-                bcFontWeight = elem.innerText;
-                break;
-
-            case 'bcIcon':
-                bcIcons = elem.innerText;
-                break;
-
-            case 'subChatWeight':
-                subFontWeight = elem.innerText;
-                break;
-
-            case 'subIcon':
-                subIcons = elem.innerText;
-                break;
-
-            case 'modChatWeight':
-                modFontWeight = elem.innerText;
-                break;
-
-            case 'modIcon':
-                modIcons = elem.innerText;
-                break;
-
-            case 'superChatWeight':
-                supFontWeight = elem.innerText;
-                break;
-
-            case'superIcon':
-                supIcons = elem.innerText;
-                break;
-
-            case'borderStyle':
-                borderStyle = elem.innerText;
-                break;
-
-            case'borderWidth':
-                borderThickness = elem.innerText;
-                break;
-
-
-            default:
-                console.log ('Couldn\'t find id: ' + elem.parentElement.id);
-        }
-
-    };
-
-    for (let i = 0; i < dropDownElements.length; i++)
-    {
-        dropDownElements[i].addEventListener ('click', function ()
-        {
-            changeElementFonts (dropDownElements[i])
-        }, false);
-    }
-}
 
 
 function addIcon(url, chatBoxId)

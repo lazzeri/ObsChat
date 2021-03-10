@@ -308,41 +308,24 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
             break;
     }
 
-    //---------------- TODO Should be redone
-    let found = false;
-    let foundColor = '';
-    savedUsers.forEach (function (elem)
-    {
-        if (id === elem.id)
-        {
-            found = true;
-            foundColor = elem.color;
-        }
-    });
 
-    if (found)
-    {
-        nickNameBox.style.color = foundColor;
-    } else
-    {
-        savedUsers.push (new UserWithColor (id, nickNameBox.style.color));
-    }
     //---------------------
     document.getElementById ("MainPanel").append (newChatBox);
-
-
     document.getElementById (newChatBox.id).append (nickNameBox);
     document.getElementById (newChatBox.id).append (textBox);
     let checkBoxHeight = parseInt (document.getElementById (newChatBox.id).offsetHeight);
     document.getElementById (newChatBox.id).removeChild (nickNameBox);
     document.getElementById (newChatBox.id).removeChild (textBox);
 
+    let fillerDiv;
     //Add Profile Picture if wanted:
     if (shouldAddPicture (role))
     {
-        let fillerDiv = document.createElement ("div");
+        fillerDiv = document.createElement ("div");
         fillerDiv.style.width = "50px";
-        fillerDiv.style.height = (checkBoxHeight + 10) + "px";
+        let filler = 30;
+
+        fillerDiv.style.height = (checkBoxHeight + filler) + "px";
         fillerDiv.style.float = "left";
         fillerDiv.style.marginRight = "7px";
         let profilePic = document.createElement ("div");
@@ -434,6 +417,9 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     document.getElementById (newChatBox.id).append (nickNameBox);
     document.getElementById (newChatBox.id).append (textBox);
     chatBoxes.push (newChatBox);
+
+    if (shouldAddPicture (role))
+        fillerDiv.style.height = (parseInt (document.getElementById (newChatBox.id).offsetHeight)+10)+ "px";
 
 
     //This is for the chat to scroll up

@@ -59,9 +59,14 @@ adjectives = ["beautiful", "lazy", "professional", "lovely", "dumb", "rough", "s
 adverbs = ["slowly", "elegantly", "precisely", "quickly", "sadly", "humbly", "proudly", "shockingly", "calmly", "passionately"];
 preposition = ["down", "into", "up", "on", "upon", "below", "above", "through", "across", "towards"];
 
+
+
 //------------------------------------- BASICS -----------------------------------//
 async function RunCode()
 {
+    let mydata = JSON.parse(data);
+    alert(mydata[0].name);
+    alert(mydata[0].age);
     startEventListeners ();
     DownloadGifts ();
     updateModsOverTime ();
@@ -77,7 +82,7 @@ async function updateModsOverTime()
 async function DownloadGifts()
 {
     console.log ("Fetching Gifts...");
-    targetUrl = 'https://ynassets.younow.com/giftsData/live/de/data.json';
+    let targetUrl = 'https://ynassets.younow.com/giftsData/live/de/data.json';
     var json = fetch (targetUrl)
         .then (blob => blob.json ())
         .then (data =>

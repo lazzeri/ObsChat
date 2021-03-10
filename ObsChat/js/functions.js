@@ -1,5 +1,4 @@
-﻿let streamerName = "MaricruzCampos";
-let width = 1400;
+﻿let width = 1400;
 let height = 800;
 let down = 150;
 let toTheRight = 100;
@@ -9,47 +8,49 @@ let error = false;
 let publicStreamerId = '7081785';
 //User Colors:
 let savedUsers = [];
-
 let streamMods = [];
-//Features Customizable Set
-//Basics Settings
-let padding = 15;
-let fontSize = 13;
-let fontFamily = 'Normal';
-let normalFontColor;
-let letterSpacing = 0;
-let wordSpacing = 0;
-let basicFontColor = '#000000';
-//Basic Chat
-let bCFontWeight = 400;
-let bcIcons = 'None';
-let bcColors = [];
-let bcIterator = 0;
-//Moderators
-let modFontWeight = 400;
-let modIcons = 'None';
-let modColors = [];
-//Subscribers
-let subFontWeight = 400;
-let subIcons = 'None';
-let subColors = [];
-//SuperChat
-let supFontWeight = 400;
-let supIcons = 'None';
-let supColors = [];
-let borderThickness = 5;
-let borderColor = '#CCCCCC';
-let borderStyle = 'None';
-//Stuff to block
-let blockInvites = false;
-let blockCaptures = false;
-let blockFan = false;
-let blockHashtags = false;
-let showAtSigns = false;
-let blockSuperMessages = false;
-
 let goodies;
 let chatBoxes = [];
+
+//Features Customizable Set
+//Basics Settings
+let streamerName;
+let chatWidth;
+let padding;
+let animation;
+let fontFamily;
+let fontSize;
+let letterSpacing;
+let wordSpacing;
+let basicFontColor;
+//Basic Chat
+let bcFontWeight;
+let bcIcons;
+let bcColors;
+//Moderators
+let modFontWeight;
+let modIcons;
+let modColors;
+//Subscribers
+let subFontWeight;
+let subIcons;
+let subColors;
+//SuperChat
+let supFontWeight;
+let supIcons;
+let supColors;
+let borderThickness;
+let borderColor;
+let borderStyle;
+//Stuff to block
+let blockInvites;
+let blockCaptures;
+let blockFan;
+let blockHashtags;
+let showAtSigns;
+let blockSuperMessages;
+
+
 
 //Random Setences
 var verbs, nouns, adjectives, adverbs, preposition;
@@ -59,14 +60,51 @@ adjectives = ["beautiful", "lazy", "professional", "lovely", "dumb", "rough", "s
 adverbs = ["slowly", "elegantly", "precisely", "quickly", "sadly", "humbly", "proudly", "shockingly", "calmly", "passionately"];
 preposition = ["down", "into", "up", "on", "upon", "below", "above", "through", "across", "towards"];
 
+//------------------------------------- BASICS -----------------------------------//
+function setData()
+{
+    let mydata = JSON.parse(data);
+
+    streamerName = mydata[0].streamerName;
+    chatWidth = mydata[0].chatWidth;
+    padding = mydata[0].padding;
+    animation = mydata[0].animation;
+    fontFamily = mydata[0].fontFamily;
+    fontSize = mydata[0].fontSize;
+    basicFontColor = mydata[0].basicFontColor;
+    letterSpacing = mydata[0].letterSpacing;
+    wordSpacing = mydata[0].wordSpacing;
+    bcFontWeight = mydata[0].bcFontWeight;
+    bcIcons = mydata[0].bcIcons;
+    bcColors = mydata[0].bcColors;
+    modFontWeight = mydata[0].modFontWeight;
+    modIcons = mydata[0].modIcons;
+    modColors = mydata[0].modColors;
+    subFontWeight = mydata[0].subFontWeight;
+    subIcons = mydata[0].subIcons;
+    subColors = mydata[0].subColors;
+    supFontWeight = mydata[0].supFontWeight;
+    supIcons = mydata[0].supIcons;
+    supColors = mydata[0].supColors;
+    borderThickness = mydata[0].borderThickness;
+    borderColor = mydata[0].borderColor;
+    borderStyle = mydata[0].borderStyle;
+    blockInvites = mydata[0].blockInvites;
+    blockCaptures = mydata[0].blockCaptures;
+    blockFan = mydata[0].blockFan;
+    blockHashtags = mydata[0].blockHashtags;
+    showAtSigns = mydata[0].showAtSigns;
+    blockSuperMessages = mydata[0].blockSuperMessages;
+
+}
 
 
 //------------------------------------- BASICS -----------------------------------//
 async function RunCode()
 {
-    let mydata = JSON.parse(data);
-    alert(mydata[0].name);
-    alert(mydata[0].age);
+    setData();
+
+
     startEventListeners ();
     DownloadGifts ();
     updateModsOverTime ();
@@ -82,7 +120,7 @@ async function updateModsOverTime()
 async function DownloadGifts()
 {
     console.log ("Fetching Gifts...");
-    let targetUrl = 'https://ynassets.younow.com/giftsData/live/de/data.json';
+    targetUrl = 'https://ynassets.younow.com/giftsData/live/de/data.json';
     var json = fetch (targetUrl)
         .then (blob => blob.json ())
         .then (data =>
@@ -246,10 +284,10 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     let maxPanelHeight = mainPanel.offsetHeight;
 
     newChatBox.style.fontFamily = fontFamily;
-    newChatBox.style.width = document.getElementById ("chatWidth").value;
+    newChatBox.style.width = chatWidth;
     newChatBox.style.position = "absolute";
     newChatBox.style.bottom = "0px";
-    newChatBox.style.animation = document.getElementById ("dropDownAnimationSelection").innerText;
+    newChatBox.style.animation = animation;
     newChatBox.style.animationDuration = "1.0s";
     newChatBox.style.letterSpacing = letterSpacing;
     newChatBox.style.wordSpacing = wordSpacing;
@@ -274,7 +312,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     {
         case('basic'):
             //Font weight
-            newChatBox.style.fontWeight = getFontWeight (bCFontWeight);
+            newChatBox.style.fontWeight = getFontWeight (bcFontWeight);
             //Colors
             if (bcColors.length > 0)
             {
@@ -538,6 +576,7 @@ function startEventListeners()
     document.getElementById ("chatWidth").addEventListener ("change", function ()
     {
         ChangeChatWidth (this.value);
+        chatWidth = this.value;
     })
 
     //Event Listener for changing Font
@@ -560,6 +599,7 @@ function startEventListeners()
     let changeAnimation = function ()
     {
         document.getElementById ('dropDownAnimationSelection').innerText = this.innerText;
+        animation = this.innerText;
     };
 
     for (let i = 0; i < animationElements.length; i++)
@@ -595,7 +635,7 @@ function startEventListeners()
         switch (elem.parentElement.id)
         {
             case 'bcChatWeight':
-                bCFontWeight = elem.innerText;
+                bcFontWeight = elem.innerText;
                 break;
 
             case 'bcIcon':
@@ -955,16 +995,45 @@ function getRandomInt(min, max)
 
 function Export()
 {
+
     let jsonData = {
-        "one": [15],
-        "two": [34],
-        "three": [67],
-        "four": [32]
+        "streamerName": streamerName,
+        "chatWidth": chatWidth,
+        "padding": padding,
+        "animation": animation,
+        "fontFamily": fontFamily.replace('""',''),
+        "fontSize": fontSize,
+        "basicFontColor": basicFontColor,
+        "letterSpacing": letterSpacing,
+        "wordSpacing": wordSpacing,
+        "bcFontWeight" : bcFontWeight,
+        "bcIcons" : bcIcons,
+        "bcColors" : bcColors,
+        "modFontWeight" : modFontWeight,
+        "modIcons" : modIcons,
+        "modColors" : modColors,
+        "subFontWeight" : subFontWeight,
+        "subIcons" : subIcons,
+        "subColors" : subColors,
+        "supFontWeight": supFontWeight,
+        "supIcons": supIcons,
+        "supColors": supColors,
+        "borderThickness": borderThickness,
+        "borderColor": borderColor,
+        "borderStyle": borderStyle,
+        "blockInvites": blockInvites,
+        "blockCaptures": blockCaptures,
+        "blockFan": blockFan,
+        "blockHashtags": blockHashtags,
+        "showAtSigns": showAtSigns,
+        "blockSuperMessages": blockSuperMessages
     };
-    let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent (JSON.stringify (jsonData));
+    let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent ('data = \'[' + JSON.stringify (jsonData) + ']\';');
     let dlAnchorElem = document.getElementById ('downloadAnchorElem');
     dlAnchorElem.setAttribute ("href", dataStr);
-    dlAnchorElem.setAttribute ("download", "scene.json");
+    dlAnchorElem.setAttribute ("download", "GeneratedOutput.json");
     dlAnchorElem.click ();
 
 }
+
+

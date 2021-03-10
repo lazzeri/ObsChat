@@ -1,5 +1,4 @@
-﻿let streamerName = "MaricruzCampos";
-let width = 1400;
+﻿let width = 1400;
 let height = 800;
 let down = 150;
 let toTheRight = 100;
@@ -9,22 +8,25 @@ let error = false;
 let publicStreamerId = '7081785';
 //User Colors:
 let savedUsers = [];
-
 let streamMods = [];
+let goodies;
+let chatBoxes = [];
+
 //Features Customizable Set
 //Basics Settings
+let streamerName = "";
+let chatWidth = 300;
 let padding = 15;
-let fontSize = 13;
+let animation = 'None';
 let fontFamily = 'Normal';
-let normalFontColor;
+let fontSize = 13;
 let letterSpacing = 0;
 let wordSpacing = 0;
 let basicFontColor = '#000000';
 //Basic Chat
-let bCFontWeight = 400;
+let bcFontWeight = 400;
 let bcIcons = 'None';
 let bcColors = [];
-let bcIterator = 0;
 //Moderators
 let modFontWeight = 400;
 let modIcons = 'None';
@@ -48,8 +50,6 @@ let blockHashtags = false;
 let showAtSigns = false;
 let blockSuperMessages = false;
 
-let goodies;
-let chatBoxes = [];
 
 //Random Setences
 var verbs, nouns, adjectives, adverbs, preposition;
@@ -241,10 +241,10 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     let maxPanelHeight = mainPanel.offsetHeight;
 
     newChatBox.style.fontFamily = fontFamily;
-    newChatBox.style.width = document.getElementById ("chatWidth").value;
+    newChatBox.style.width = chatWidth;
     newChatBox.style.position = "absolute";
     newChatBox.style.bottom = "0px";
-    newChatBox.style.animation = document.getElementById ("dropDownAnimationSelection").innerText;
+    newChatBox.style.animation = animation;
     newChatBox.style.animationDuration = "1.0s";
     newChatBox.style.letterSpacing = letterSpacing;
     newChatBox.style.wordSpacing = wordSpacing;
@@ -269,7 +269,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     {
         case('basic'):
             //Font weight
-            newChatBox.style.fontWeight = getFontWeight (bCFontWeight);
+            newChatBox.style.fontWeight = getFontWeight (bcFontWeight);
             //Colors
             if (bcColors.length > 0)
             {
@@ -533,6 +533,7 @@ function startEventListeners()
     document.getElementById ("chatWidth").addEventListener ("change", function ()
     {
         ChangeChatWidth (this.value);
+        chatWidth = this.value;
     })
 
     //Event Listener for changing Font
@@ -555,6 +556,7 @@ function startEventListeners()
     let changeAnimation = function ()
     {
         document.getElementById ('dropDownAnimationSelection').innerText = this.innerText;
+        animation = this.innerText;
     };
 
     for (let i = 0; i < animationElements.length; i++)
@@ -590,7 +592,7 @@ function startEventListeners()
         switch (elem.parentElement.id)
         {
             case 'bcChatWeight':
-                bCFontWeight = elem.innerText;
+                bcFontWeight = elem.innerText;
                 break;
 
             case 'bcIcon':
@@ -948,18 +950,103 @@ function getRandomInt(min, max)
 
 //EXPORT FUNCTIONS
 
-function Export()
+function hasWrongName()
 {
-    let jsonData = {
-        "one": [15],
-        "two": [34],
-        "three": [67],
-        "four": [32]
-    };
-    let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent (JSON.stringify (jsonData));
-    let dlAnchorElem = document.getElementById ('downloadAnchorElem');
-    dlAnchorElem.setAttribute ("href", dataStr);
-    dlAnchorElem.setAttribute ("download", "scene.json");
-    dlAnchorElem.click ();
+
+    return new Promise ((resolve, reject) =>
+    {
+        let output = false;
+        console.log ("Fetching Broadcast....");
+        let proxyUrl = 'https://younow-cors-header.herokuapp.com/?q=',
+            targetUrl = 'https://api.younow.com/php/api/broadcast/info/curId=0/user=' + streamerName;
+        let json = fetch (proxyUrl + targetUrl)
+            .then (blob => blob.json ())
+            .then (data =>
+            {
+                json = JSON.stringify (data, null, 2);
+                let done = JSON.parse (json);
+                if (json.length < 1)
+                {
+                } else if (done.errorCode === 102)
+                {
+                    output = true;
+                    console.log (output);
+                }
+
+                resolve (output);
+            })
+            .catch (e =>
+            {
+                reject ()
+            });
+    });
+
 
 }
+
+
+function Export()
+{
+    if (streamerName.localeCompare ("") === 0)
+    {
+        document.getElementById ("exportAlert").innerText = "YOU HAVE NOT SET A STREAMER NAME";
+    } else
+    {
+        hasWrongName ().then ((message) =>
+        {
+            console.log ('Success: ' + message)
+            if (message)
+            {
+                document.getElementById ("exportAlert").innerText = "USERNAME NOT FOUND";
+            } else
+            {
+                document.getElementById ("exportAlert").innerText = "";
+                let fontFam = fontFamily.replaceAll ("\"", "");
+                let jsonData = {
+                    "streamerName": streamerName,
+                    "chatWidth": chatWidth,
+                    "padding": padding,
+                    "animation": animation,
+                    "fontFamily": fontFam,
+                    "fontSize": fontSize,
+                    "basicFontColor": basicFontColor,
+                    "letterSpacing": letterSpacing,
+                    "wordSpacing": wordSpacing,
+                    "bcFontWeight": bcFontWeight,
+                    "bcIcons": bcIcons,
+                    "bcColors": bcColors,
+                    "modFontWeight": modFontWeight,
+                    "modIcons": modIcons,
+                    "modColors": modColors,
+                    "subFontWeight": subFontWeight,
+                    "subIcons": subIcons,
+                    "subColors": subColors,
+                    "supFontWeight": supFontWeight,
+                    "supIcons": supIcons,
+                    "supColors": supColors,
+                    "borderThickness": borderThickness,
+                    "borderColor": borderColor,
+                    "borderStyle": borderStyle,
+                    "blockInvites": blockInvites,
+                    "blockCaptures": blockCaptures,
+                    "blockFan": blockFan,
+                    "blockHashtags": blockHashtags,
+                    "showAtSigns": showAtSigns,
+                    "blockSuperMessages": blockSuperMessages
+                };
+                let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent ('data = \'[' + JSON.stringify (jsonData) + ']\';');
+                let dlAnchorElem = document.getElementById ('downloadAnchorElem');
+                dlAnchorElem.setAttribute ("href", dataStr);
+                dlAnchorElem.setAttribute ("download", "GeneratedOutput.json");
+                dlAnchorElem.click ();
+            }
+
+
+        }).catch ((error) =>
+        {
+            console.log (error.name + ' ' + error.message)
+        });
+
+    }
+}
+

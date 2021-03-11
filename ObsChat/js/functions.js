@@ -52,7 +52,6 @@ let blockSuperMessages;
 let nicknameThickness;
 
 
-
 //Random Setences
 var verbs, nouns, adjectives, adverbs, preposition;
 nouns = ["bird", "clock", "boy", "plastic", "duck", "teacher", "old lady", "professor", "hamster", "dog"];
@@ -64,7 +63,7 @@ preposition = ["down", "into", "up", "on", "upon", "below", "above", "through", 
 //------------------------------------- BASICS -----------------------------------//
 function setData()
 {
-    let mydata = JSON.parse(data);
+    let mydata = JSON.parse (data);
 
     streamerName = mydata[0].streamerName;
     chatWidth = mydata[0].chatWidth;
@@ -104,8 +103,8 @@ function setData()
 //------------------------------------- BASICS -----------------------------------//
 async function RunCode()
 {
-    setData();
-    AddToChat("Connecting to Database..", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
+    setData ();
+    AddToChat ("Connecting to Database..", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
     await DownloadGifts ();
     await FetchBroadcastId ();
     await updateModsOverTime ();
@@ -115,10 +114,9 @@ async function RunCode()
 //subscriptionType
 async function updateModsOverTime()
 {
-    while(true)
+    while (true)
     {
         await sleep (10000);
-        console.log('bang');
         updateMods (streamerName);
     }
 }
@@ -139,7 +137,7 @@ async function DownloadGifts()
 async function Retry()
 {
     console.log ("Retrying in 5 seconds");
-    AddToChat("Retrying in 5 seconds", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
+    AddToChat ("Retrying in 5 seconds", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
 
     await sleep (5000);
     error = false;
@@ -157,20 +155,19 @@ async function FetchBroadcastId()
         {
             json = JSON.stringify (data, null, 2);
             let done = JSON.parse (json);
-            console.log(done.errorCode);
+            console.log (done.errorCode);
             if (json.length < 1)
             {
                 console.log ("No Data Found");
                 error = true;
             } else if (done.errorCode === 102)
             {
-                AddToChat("This user does not exist, please go check the Username input in the GeneratedOutput.json", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
+                AddToChat ("This user does not exist, please go check the Username input in the GeneratedOutput.json", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
                 error = true;
-            }
-            else if (done.errorCode !== 0)
+            } else if (done.errorCode !== 0)
             {
                 console.log ("User not online..");
-                AddToChat("User is not online", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
+                AddToChat ("User is not online", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
 
                 error = true;
             }
@@ -184,7 +181,7 @@ async function FetchBroadcastId()
                 userId = done.userId;
                 broadcastId = done.broadcastId;
                 console.log ("Data Found");
-                AddToChat("Successfully  connected", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
+                AddToChat ("Successfully  connected", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
 
                 FetchEvent ();
                 return;
@@ -296,7 +293,7 @@ function FetchEvent()
 
 function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, isMod)
 {
-    nickName = nickName.substring(0,19);
+    nickName = nickName.substring (0, 19);
     let mainPanel = document.getElementById ("MainPanel");
     let newChatBox = document.createElement ("div");
     let maxPanelHeight = mainPanel.offsetHeight;
@@ -373,13 +370,21 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
 
     //---------------------
     document.getElementById ("MainPanel").append (newChatBox);
-    document.getElementById (newChatBox.id).append (nickNameBox);
-    document.getElementById (newChatBox.id).append (textBox);
-    let checkBoxHeight = parseInt (document.getElementById (newChatBox.id).offsetHeight);
-    document.getElementById (newChatBox.id).removeChild (nickNameBox);
-    document.getElementById (newChatBox.id).removeChild (textBox);
+    switch (crownsAmount)
+    {
+        case 6:
+            addBorder (role, newChatBox.id, 1);
+            break;
+        case 7:
+            addBorder (role, newChatBox.id, 2);
+            break;
+        case 8:
+            addBorder (role, newChatBox.id, 3);
+            break;
+    }
 
     let fillerDiv;
+    //Add Profile Picture if wanted:
     //Add Profile Picture if wanted:
     if (shouldAddPicture (role))
     {
@@ -387,6 +392,8 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
         profilePic.style.height = "50px";
         profilePic.style.width = "50px";
         profilePic.style.float = "left";
+        profilePic.style.marginTop = "2px";
+        profilePic.style.marginLeft = "5px";
         profilePic.style.marginRight = "7px";
         profilePic.style.backgroundSize = 'contain';
         profilePic.style.borderRadius = '55%';
@@ -418,7 +425,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
             {
                 console.log (isMod + " " + isSub);
                 if (isMod)
-                    addIcon ('icons/Mod.svg', newChatBox.id,20,17);
+                    addIcon ('icons/Mod.svg', newChatBox.id, 20, 17);
                 if (isSub === 1)
                     addIcon ('https://ynassets.younow.com/subscriptions/live/' + streamerId + '/1/badge.png', newChatBox.id);
             }
@@ -427,7 +434,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
         case('mods'):
             if (shouldAddIcon (role))
             {
-                addIcon ('icons/Mod.svg', newChatBox.id,20,17);
+                addIcon ('icons/Mod.svg', newChatBox.id, 20, 17);
                 if (isSub === 1)
                     addIcon ('https://ynassets.younow.com/subscriptions/live/' + streamerId + '/1/badge.png', newChatBox.id);
 
@@ -473,10 +480,6 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     document.getElementById (newChatBox.id).append (textBox);
     chatBoxes.push (newChatBox);
 
-    if (shouldAddPicture (role))
-        fillerDiv.style.height = (parseInt (document.getElementById (newChatBox.id).offsetHeight)+10)+ "px";
-
-
     //This is for the chat to scroll up
     let newBoxSize = parseInt (newChatBox.offsetHeight);
     for (let i = 0; i < chatBoxes.length; i++)
@@ -496,6 +499,25 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
         chatBoxes[i].style.bottom = (Number.parseInt (padding) + convert + newBoxSize) + "px";
     }
 
+}
+
+function addBorder(role, id, num)
+{
+    //Add Profile Picture if wanted:
+    if (shouldAddPicture (role))
+    {
+        let border = document.createElement ("div");
+        border.style.position = "absolute";
+        border.style.height = "60px";
+        border.style.width = "60px";
+        border.style.float = "left";
+        border.style.marginRight = "7px";
+        border.style.backgroundSize = 'contain';
+        border.style.borderRadius = '55%';
+        border.style.backgroundImage = "url(icons/Border" + num + ".svg)";
+        document.getElementById (id).append (border);
+
+    }
 }
 
 function shouldAddPicture(role)
@@ -569,8 +591,7 @@ function ChangeChatWidth(i)
 }
 
 
-
-function addIcon(url, chatBoxId,height = 21,width = 21)
+function addIcon(url, chatBoxId, height = 21, width = 21)
 {
     let icon = document.createElement ("div");
     icon.style.height = height + "px";
@@ -880,20 +901,20 @@ function Export()
         "chatWidth": chatWidth,
         "padding": padding,
         "animation": animation,
-        "fontFamily": fontFamily.replace('""',''),
+        "fontFamily": fontFamily.replace ('""', ''),
         "fontSize": fontSize,
         "basicFontColor": basicFontColor,
         "letterSpacing": letterSpacing,
         "wordSpacing": wordSpacing,
-        "bcFontWeight" : bcFontWeight,
-        "bcIcons" : bcIcons,
-        "bcColors" : bcColors,
-        "modFontWeight" : modFontWeight,
-        "modIcons" : modIcons,
-        "modColors" : modColors,
-        "subFontWeight" : subFontWeight,
-        "subIcons" : subIcons,
-        "subColors" : subColors,
+        "bcFontWeight": bcFontWeight,
+        "bcIcons": bcIcons,
+        "bcColors": bcColors,
+        "modFontWeight": modFontWeight,
+        "modIcons": modIcons,
+        "modColors": modColors,
+        "subFontWeight": subFontWeight,
+        "subIcons": subIcons,
+        "subColors": subColors,
         "supFontWeight": supFontWeight,
         "supIcons": supIcons,
         "supColors": supColors,

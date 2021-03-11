@@ -312,11 +312,16 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
 
     //---------------------
     document.getElementById ("MainPanel").append (newChatBox);
-    document.getElementById (newChatBox.id).append (nickNameBox);
-    document.getElementById (newChatBox.id).append (textBox);
-    let checkBoxHeight = parseInt (document.getElementById (newChatBox.id).offsetHeight);
-    document.getElementById (newChatBox.id).removeChild (nickNameBox);
-    document.getElementById (newChatBox.id).removeChild (textBox);
+
+    switch (crownsAmount)
+    {
+        case 6: addBorder(role,newChatBox.id,1);
+        break;
+        case 7: addBorder(role,newChatBox.id,2);
+        break;
+        case 8: addBorder(role,newChatBox.id,3);
+        break;
+    }
 
     //Add Profile Picture if wanted:
     if (shouldAddPicture (role))
@@ -325,6 +330,8 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
         profilePic.style.height = "50px";
         profilePic.style.width = "50px";
         profilePic.style.float = "left";
+        profilePic.style.marginTop = "2px";
+        profilePic.style.marginLeft = "5px";
         profilePic.style.marginRight = "7px";
         profilePic.style.backgroundSize = 'contain';
         profilePic.style.borderRadius = '55%';
@@ -332,6 +339,8 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
         document.getElementById (newChatBox.id).append (profilePic);
 
     }
+
+
 
     //This is were we add the icons
     switch (role)
@@ -431,6 +440,25 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
         chatBoxes[i].style.bottom = (Number.parseInt (padding) + convert + newBoxSize) + "px";
     }
 
+}
+
+function addBorder(role,id,num)
+{
+    //Add Profile Picture if wanted:
+    if (shouldAddPicture (role))
+    {
+        let border = document.createElement ("div");
+        border.style.position = "absolute";
+        border.style.height = "60px";
+        border.style.width = "60px";
+        border.style.float = "left";
+        border.style.marginRight = "7px";
+        border.style.backgroundSize = 'contain';
+        border.style.borderRadius = '55%';
+        border.style.backgroundImage = "url(icons/Border" + num + ".svg)";
+        document.getElementById (id).append (border);
+
+    }
 }
 
 function shouldAddPicture(role)

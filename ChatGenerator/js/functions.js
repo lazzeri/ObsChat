@@ -236,7 +236,7 @@ function FetchEvent()
 
 function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, isMod)
 {
-
+    nickName = nickName.substring(0,19);
     let mainPanel = document.getElementById ("MainPanel");
     let newChatBox = document.createElement ("div");
     let maxPanelHeight = mainPanel.offsetHeight;

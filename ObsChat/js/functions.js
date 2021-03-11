@@ -321,7 +321,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     nickNameBox.style.fontWeight = getFontWeight (nicknameThickness);
     let textBox = document.createElement ("div");
 
-    textBox.style.display = "inline";
+    textBox.style.display = "flex";
     textBox.innerText = input;
 
     // Switch for the Roles
@@ -383,22 +383,15 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     //Add Profile Picture if wanted:
     if (shouldAddPicture (role))
     {
-        fillerDiv = document.createElement ("div");
-        fillerDiv.style.width = "50px";
-        let filler = 30;
-
-        fillerDiv.style.height = (checkBoxHeight + filler) + "px";
-        fillerDiv.style.float = "left";
-        fillerDiv.style.marginRight = "7px";
         let profilePic = document.createElement ("div");
         profilePic.style.height = "50px";
         profilePic.style.width = "50px";
+        profilePic.style.float = "left";
+        profilePic.style.marginRight = "7px";
         profilePic.style.backgroundSize = 'contain';
         profilePic.style.borderRadius = '55%';
         profilePic.style.backgroundImage = "url(https://ynassets.younow.com/user/live/" + id + "/" + id + ".jpg)";
-
-        fillerDiv.append (profilePic);
-        document.getElementById (newChatBox.id).append (fillerDiv);
+        document.getElementById (newChatBox.id).append (profilePic);
 
     }
 

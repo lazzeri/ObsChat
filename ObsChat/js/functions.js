@@ -368,6 +368,24 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     }
 
 
+    //---------------- TODO Should be redone
+    let found = false;
+    let foundColor = '';
+    savedUsers.forEach (function (elem)
+    {
+        if (id === elem.id)
+        {
+            found = true;
+            foundColor = elem.color;
+        }
+    });
+    if (found)
+    {
+        nickNameBox.style.color = foundColor;
+    } else
+    {
+        savedUsers.push (new UserWithColor (id, nickNameBox.style.color));
+    }
     //---------------------
     document.getElementById ("MainPanel").append (newChatBox);
     switch (crownsAmount)

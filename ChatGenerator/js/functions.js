@@ -244,6 +244,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     let newChatBox = document.createElement ("div");
     let maxPanelHeight = mainPanel.offsetHeight;
 
+    newChatBox.style.wordBreak = "break-all";
     newChatBox.style.fontFamily = fontFamily;
     newChatBox.style.width = chatWidth;
     newChatBox.style.position = "absolute";

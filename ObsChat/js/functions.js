@@ -741,7 +741,6 @@ function resetSettings()
     document.getElementById ('mods').style.display = 'none';
     document.getElementById ('superChat').style.display = 'none';
     document.getElementById ('whatToShow').style.display = 'none';
-
 }
 
 function showFolder(name)

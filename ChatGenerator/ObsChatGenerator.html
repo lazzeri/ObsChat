@@ -94,14 +94,95 @@
 
         @font-face {
             font-family: 'Normal';
-            src: url('helvetica_neu_bold.woff2') format('woff2'),
-            url('helvetica_neu_bold.woff') format('woff');
+            src: url('fonts/helvetica_neu_bold.woff2') format('woff2'),
+            url('fonts/helvetica_neu_bold.woff') format('woff');
         }
 
         @font-face {
             font-family: 'Arcade';
-            src: url('arcadeclassic-webfont.woff2') format('woff2'),
-            url('arcadeclassic-webfont.woff') format('woff');
+            src: url('fonts/arcadeclassic-webfont.woff2') format('woff2'),
+            url('fonts/arcadeclassic-webfont.woff') format('woff');
+        }
+
+        @font-face {
+            font-family: 'Archia';
+            src: url('fonts/anotherFont/archia-regular-webfont.woff2') format('woff2'),
+            url('fonts/anotherFont/archia-regular-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+
+        }
+
+        @font-face {
+            font-family: 'Amatic';
+            src: url('fonts/mostFonds/amatic-webfont.woff2') format('woff2'),
+            url('fonts/mostFonds/amatic-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Archer';
+            src: url('fonts/mostFonds/archerpro-webfont.woff2') format('woff2'),
+            url('fonts/mostFonds/archerpro-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Falcon';
+            src: url('fonts/mostFonds/falcon-webfont.woff2') format('woff2'),
+            url('fonts/mostFonds/falcon-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Kalmanskr';
+            src: url('fonts/mostFonds/kalmansk-webfont.woff2') format('woff2'),
+            url('fonts/mostFonds/kalmansk-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Nimbus';
+            src: url('fonts/mostFonds/nimbus-webfont.woff2') format('woff2'),
+            url('fonts/mostFonds/nimbus-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Reglo';
+            src: url('fonts/mostFonds/reglo-webfont.woff2') format('woff2'),
+            url('fonts/mostFonds/reglo-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Resin';
+            src: url('fonts/mostFonds/resin-webfont.woff2') format('woff2'),
+            url('fonts/mostFonds/resin-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Roboto';
+            src: url('fonts/mostFonds/roboto-webfont.woff2') format('woff2'),
+            url('fonts/mostFonds/roboto-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Vinson';
+            src: url('fonts/mostFonds/vinson-webfont.woff2') format('woff2'),
+            url('fonts/mostFonds/vinson-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
         }
 
         @-webkit-keyframes SliiideToTheLeft {
@@ -174,29 +255,18 @@
                     Normal
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item fontSelection" style="font-family: Normal">Normal</a>
-                    <a class="dropdown-item fontSelection" style="font-family: Georgia">Georgia</a>
-                    <a class="dropdown-item fontSelection"
-                       style="font-family: Palatino Linotype, Book Antiqua, Palatino, serif">Palatino</a>
-                    <a class="dropdown-item fontSelection" style="font-family: Times New Roman">Times New
-                        Roman</a>
-                    <a class="dropdown-item fontSelection" style="font-family: Arial">Arial</a>
-                    <a class="dropdown-item fontSelection" style="font-family: Arial Black">Arial
-                        Black</a>
-                    <a class="dropdown-item fontSelection" style="font-family: Comic Sans MS">Comic
-                        Sans</a>
-                    <a class="dropdown-item fontSelection" style="font-family: Impact">Impact</a>
-                    <a class="dropdown-item fontSelection"
-                       style="font-family: Lucida Sans Unicode">Lucida Sans</a>
-                    <a class="dropdown-item fontSelection" style="font-family: Tahoma">Tahoma</a>
-                    <a class="dropdown-item fontSelection" style="font-family: Trebuchet MS">Trebuchet</a>
-                    <a class="dropdown-item fontSelection" style="font-family: Verdana">Verdana</a>
-                    <a class="dropdown-item fontSelection"
-                       style="font-family: Courier New, Courier, monospace">Courier</a>
-                    <a class="dropdown-item fontSelection" style="font-family: Lucida Console">Lucida
-                        Console</a>
-                    <a class="dropdown-item fontSelection" style="font-family: Arcade">Arcade</a>
-                </div>
+                    <a class="dropdown-item fontSelection" style="font-family: Normal,serif"> Normal </a>
+                    <a class="dropdown-item fontSelection" style="font-family: Arcade"> Arcade </a>
+                    <a class="dropdown-item fontSelection" style="font-family: Archia"> Archia </a>
+                    <a class="dropdown-item fontSelection" style="font-family: Amatic"> Amatic </a>
+                    <a class="dropdown-item fontSelection" style="font-family: Archer"> Archer </a>
+                    <a class="dropdown-item fontSelection" style="font-family: Falcon"> Falcon </a>
+                    <a class="dropdown-item fontSelection" style="font-family: Kalmanskr"> Kalmanskr </a>
+                    <a class="dropdown-item fontSelection" style="font-family: Nimbus"> Nimbus </a>
+                    <a class="dropdown-item fontSelection" style="font-family: Reglo"> Reglo </a>
+                    <a class="dropdown-item fontSelection" style="font-family: Resin"> Resin </a>
+                    <a class="dropdown-item fontSelection" style="font-family: Roboto"> Roboto </a>
+                    <a class="dropdown-item fontSelection" style="font-family: Vinson"> Vinson </a></div>
             </div>
             <label class="center subTitle">Chat Enter Animation:</label>
             <div class="dropdown">
@@ -222,7 +292,6 @@
             <input class="input-box" type="number" id="letterSpacing" value="0" onchange="setLetterSpacing(this.value)">
             <label class="center subTitle">Word Spacing:</label>
             <input class="input-box" type="number" id="wordSpacing" value="0" onchange="setWordSpacing(this.value)">
-
             <label class="center subTitle">Title Thickness:</label>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle dropdownFont" type="button"
@@ -236,6 +305,8 @@
                     <a class="dropdown-item dropDownItem">Bold</a>
                 </div>
             </div>
+            <label class="center subTitle">Title Size:</label>
+            <input class="input-box" type="number" id="nicknameSize" value="15">
         </div>
         <div id="basicChat" style="margin-top:20px;display: none">
             <label class="center title">Basic Chat:</label>
@@ -475,7 +546,8 @@
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="blockSuperMessages" onchange="setBlocks(this)">
+                <input class="form-check-input" type="checkbox" value="" id="blockSuperMessages"
+                       onchange="setBlocks(this)">
                 <label class="form-check-label" for="showHashtags">
                     Block SuperChat Messages
                 </label>
@@ -485,16 +557,20 @@
 
     </div>
     <div id="buttonGroup" class="grid-container" style="width:200px; position: absolute; top:10px; left: 350px">
-        <button class="btn btn-primary" style="position: relative; margin-top:10px" onclick="AddChat('basic',7081785,7081785,5,1,true);  ">Add
+        <button class="btn btn-primary" style="position: relative; margin-top:10px"
+                onclick="AddChat('basic',7081785,7081785,5,1,true);  ">Add
             Normal
             Chat
         </button>
-        <button class="btn btn-primary" style="position: relative;margin-top:10px" onclick="AddChat('subs',7081785,7081785,6,1,true);">Add
+        <button class="btn btn-primary" style="position: relative;margin-top:10px"
+                onclick="AddChat('subs',7081785,7081785,6,1,true);">Add
             Subscribers Chat
         </button>
-        <button class="btn btn-primary" style="position: relative;margin-top:10px" onclick="AddChat('mods',7081785,7081785,7,1,true);">Add Mod Chat
+        <button class="btn btn-primary" style="position: relative;margin-top:10px"
+                onclick="AddChat('mods',7081785,7081785,7,1,true);">Add Mod Chat
         </button>
-        <button class="btn btn-primary" style="position: relative;margin-top:10px" onclick="AddChat('superChat',7081785,7081785,8,1,true);">Add
+        <button class="btn btn-primary" style="position: relative;margin-top:10px"
+                onclick="AddChat('superChat',7081785,7081785,8,1,true);">Add
             SuperChat
         </button>
         <button class="btn btn-warning" style="position: relative;margin-top:10px" onclick="FetchBroadcastId();">Start

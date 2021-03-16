@@ -50,6 +50,7 @@ let blockHashtags;
 let showAtSigns;
 let blockSuperMessages;
 let nicknameThickness;
+let nicknameSize;
 
 
 //Random Setences
@@ -96,6 +97,7 @@ function setData()
     showAtSigns = mydata[0].showAtSigns;
     blockSuperMessages = mydata[0].blockSuperMessages;
     nicknameThickness = mydata[0].nicknameThickness;
+    nicknameSize = mydata[0].nicknameSize;
 
 }
 
@@ -312,7 +314,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     newChatBox.style.display = "inline";
 
     let nickNameBox = document.createElement ("div");
-    nickNameBox.style.fontSize = 17 + "px";
+    nickNameBox.style.fontSize = nicknameSize + "px";
     nickNameBox.style.display = "inline";
     nickNameBox.innerText = nickName + ': \n';
     nickNameBox.style.fontWeight = getFontWeight (nicknameThickness);
@@ -323,7 +325,6 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
 
     // Switch for the Roles
     //Roles get weighted like this: Mod < Sub < Normal
-
     switch (role)
     {
         case('basic'):

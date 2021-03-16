@@ -50,6 +50,8 @@ let blockHashtags = false;
 let showAtSigns = false;
 let blockSuperMessages = false;
 let nicknameThickness = 'None';
+let nicknameSize = 17;
+
 
 
 //Random Setences
@@ -142,6 +144,7 @@ function FetchEvent()
     let pusher = new Pusher ('d5b7447226fc2cd78dbb', {
         cluster: "younow"
     });
+
     let channel = pusher.subscribe ("public-channel_" + userId);
 
     channel.bind ('onSuperMessage', function (data)
@@ -255,7 +258,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     newChatBox.style.display = "inline";
 
     let nickNameBox = document.createElement ("div");
-    nickNameBox.style.fontSize = 17 + "px";
+    nickNameBox.style.fontSize = nicknameSize + "px";
     nickNameBox.style.display = "inline";
     nickNameBox.innerText = nickName + ': \n';
     nickNameBox.style.fontWeight = getFontWeight (nicknameThickness);
@@ -573,6 +576,13 @@ function startEventListeners()
     {
         padding = this.value;
     })
+
+    //Eventlistener for TitleSize
+    document.getElementById ("nicknameSize").addEventListener ("change", function ()
+    {
+        nicknameSize = this.value;
+    })
+
 
     //For fontsize
     document.getElementById ("fontSize").addEventListener ("change", function ()
@@ -1041,7 +1051,8 @@ function Export()
                     "blockHashtags": blockHashtags,
                     "showAtSigns": showAtSigns,
                     "blockSuperMessages": blockSuperMessages,
-                    "nicknameThickness" : nicknameThickness
+                    "nicknameThickness" : nicknameThickness,
+                    "nicknameSize": nicknameSize
                 };
                 let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent ('data = \'[' + JSON.stringify (jsonData) + ']\';');
                 let dlAnchorElem = document.getElementById ('downloadAnchorElem');

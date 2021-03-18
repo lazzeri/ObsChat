@@ -301,6 +301,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     let maxPanelHeight = mainPanel.offsetHeight;
 
     newChatBox.style.wordBreak = "break-all";
+    newChatBox.style.wordBreak = "break-word";
     newChatBox.style.fontFamily = fontFamily;
     newChatBox.style.width = chatWidth;
     newChatBox.style.position = "absolute";
@@ -828,7 +829,7 @@ function AddChat(role, id, streamId, crownsAmount, isSub, isMod)
     let randomId = [7746914, 22751048, 168780, 9835723, 31162113, 15466670, 10565823, 42462616, 39780508];
 
     let randomNum = Number.parseInt (randomNumber (0, randomId.length - 1));
-    AddToChat (content, generateName (), role, randomId[randomNum], streamId, crownsAmount, isSub, isMod);
+    AddToChat ('soineedtocutthistrhouasdfgh but normal wouds shouldnt be cut so hopefully it works now?', generateName (), role, randomId[randomNum], streamId, crownsAmount, isSub, isMod);
 }
 
 function getFontWeight(elem)

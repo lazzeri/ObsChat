@@ -174,6 +174,7 @@ function FetchEvent()
         {
             for (let i = 0; i < data.message.comments.length; i++)
             {
+                console.log(data);
                 let isSub = data.message.comments[i].subscriptionType;
                 let isMod = data.message.comments[i].broadcasterMod;
                 let nickName = data.message.comments[i].name;
@@ -245,6 +246,7 @@ function AddToChat(input, nickName, role, id, streamerId, crownsAmount, isSub, i
     let maxPanelHeight = mainPanel.offsetHeight;
 
     newChatBox.style.wordBreak = "break-all";
+    newChatBox.style.wordBreak = "break-word";
     newChatBox.style.fontFamily = fontFamily;
     newChatBox.style.width = chatWidth;
     newChatBox.style.position = "absolute";
@@ -894,15 +896,12 @@ function getFontWeight(elem)
     {
         case('Light'):
             return 400;
-            break;
         case('Medium'):
             return 600;
-            break;
         case('Bold'):
             return 1000;
         default:
             return elem;
-            break;
     }
 }
 

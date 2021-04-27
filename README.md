@@ -1,9 +1,10 @@
-# ObsChat
-Generates a Chat used on Obs for the streaming website younow.com
+# <a href="https://github.com/lazzeri">lazzeri</a>'s ObsChat for YouNow with stored Settings
+Generates a Chat used on Obs for the streaming website younow.com.
+This fork extends the tool with the following features:
+- The tool no longer needs to be downloaded and is usable as a website
+- Settings are automatically transferred to OBS (without configuration file)
+- Settings made in the ChatGenerator will be saved and restored the next time you open the tool again.
 
-Need help?
-https://www.youtube.com/watch?v=pH_C7nSuppA
+## Tool Website: https://zerodytrash.github.io/ObsChat/
 
-Need more help?
-Discord: UkuLuca #8288
-Insta: Ukuluca
+Demo: https://www.youtube.com/watch?v=ThZoUlJCSUM

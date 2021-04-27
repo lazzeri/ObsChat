@@ -21,7 +21,11 @@ function getInstanceId() {
 }
 
 function getWidgetUrl() {
-    return location.protocol + '//' + location.host + "/ObsChat/ObsChat.html?instanceId=" + getInstanceId();
+    if(location.host.indexOf(".github.io") >= 0) {
+        return location.protocol + '//' + location.host + "/ObsChat/ObsChat/ObsChat.html?instanceId=" + getInstanceId(); 
+    } else {
+        return location.protocol + '//' + location.host + "/ObsChat/ObsChat.html?instanceId=" + getInstanceId();
+    }
 }
 
 function pushConfig(config) {

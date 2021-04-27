@@ -51,6 +51,8 @@ let showAtSigns;
 let blockSuperMessages;
 let nicknameThickness;
 let nicknameSize;
+//Socket.io connection
+let ioConnection;
 
 
 //Random Setences
@@ -105,12 +107,65 @@ function setData()
 //------------------------------------- BASICS -----------------------------------//
 async function RunCode()
 {
-    setData ();
-    AddToChat ("Connecting to Database..", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
-    await DownloadGifts ();
-    await FetchBroadcastId ();
-    await updateModsOverTime ();
 
+    var initData = async function() {
+        setData();
+
+        // prevent mutiple executions of this method by socket.io events
+        if(window.dataInitialized) return;
+        window.dataInitialized = true;
+
+        console.info("Booting with config: ", window.data);
+
+        AddToChat ("Connecting to Database..", "HelperRobot", "basic", 50250342, 0, 0, false, 0);
+        await DownloadGifts ();
+        await FetchBroadcastId ();
+        await updateModsOverTime (); 
+    }
+
+    
+    if(location.protocol === "file:") {
+
+        // option 1: The widget is executed from a local file => use config file
+        initData();   
+
+    } else {
+
+        // option 2: the widget is executed from a server => use socket.io to process the config
+
+        var helpText = $("<h2>");
+        helpText.text("Please click on 'Save & Apply' to retrieve your config!");
+        helpText.css("position", "absolute");
+        helpText.css("top", "0");
+        helpText.appendTo($("body"));
+
+        var instanceId = getInstanceIdFromUrl();
+
+        if(!instanceId) {
+            helpText.text("Missing 'instanceId' URL Param. Please Update your Widget-URL!");
+            return;
+        }
+
+        var lastStreamerName = null;
+
+        initConfigProvider(instanceId, (widgetConfig) => {
+            
+            // if the streamerName gets changed by the user, a reload is required.
+            if(lastStreamerName && lastStreamerName !== widgetConfig.streamerName) {
+                location.reload();
+                return;
+            }
+
+            lastStreamerName = widgetConfig.streamerName;
+
+            // ToDo: why the setData() function expects an stringified array instead of an simple object?
+            window.data = JSON.stringify([widgetConfig]);
+
+            helpText.remove();
+
+            initData();
+        })
+    }
 }
 
 //subscriptionType

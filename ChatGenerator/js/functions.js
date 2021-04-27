@@ -52,6 +52,8 @@ let blockSuperMessages = false;
 let nicknameThickness = 'None';
 let nicknameSize = 17;
 
+//If this tool is opened from a local file, some features like the localStorage isn't available. In this case use the downloadable config file
+let isLocalExecution = location.protocol === "file:";
 
 
 //Random Setences
@@ -65,6 +67,22 @@ preposition = ["down", "into", "up", "on", "upon", "below", "above", "through", 
 //------------------------------------- BASICS -----------------------------------//
 async function RunCode()
 {
+    // if the page is load from a Server, the localStorage-functionalty can be used to store user settings
+    if(!isLocalExecution && typeof restoreConfigFromLocalStorage === "function") {
+        // trigger config restore on page ready
+        $(document).ready(restoreConfigFromLocalStorage);
+    }
+
+    if(isLocalExecution) {
+        $("#saveOrExportButton").text("Export File");
+        $("#widgetUrlArea").hide();
+        
+    } else {
+        $("#saveOrExportButton").text("Save & Apply");
+        $("#widgetUrlInput").val(getWidgetUrl())
+        initIoConnection();
+    }
+
     startEventListeners ();
     DownloadGifts ();
     updateModsOverTime ();
@@ -1019,6 +1037,17 @@ function Export()
             } else
             {
                 document.getElementById ("exportAlert").innerText = "";
+
+                // if the page is loaded via http(s) and the save function exists, try to save all settings
+                if(!isLocalExecution && typeof saveConfigInLocalStorage === "function") {
+                    try {
+                        saveConfigInLocalStorage();
+                    } catch(ex) {
+                        console.error(ex);
+                        alert("can't save settings in Browser Storage :(");
+                    }                    
+                }
+                
                 let fontFam = fontFamily.replaceAll ("\"", "");
                 let jsonData = {
                     "streamerName": streamerName,
@@ -1054,11 +1083,20 @@ function Export()
                     "nicknameThickness" : nicknameThickness,
                     "nicknameSize": nicknameSize
                 };
-                let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent ('data = \'[' + JSON.stringify (jsonData) + ']\';');
-                let dlAnchorElem = document.getElementById ('downloadAnchorElem');
-                dlAnchorElem.setAttribute ("href", dataStr);
-                dlAnchorElem.setAttribute ("download", "GeneratedOutput.json");
-                dlAnchorElem.click ();
+
+                if(isLocalExecution) {
+
+                    // download config file
+                    let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent ('data = \'[' + JSON.stringify (jsonData) + ']\';');
+                    let dlAnchorElem = document.getElementById ('downloadAnchorElem');
+                    dlAnchorElem.setAttribute ("href", dataStr);
+                    dlAnchorElem.setAttribute ("download", "GeneratedOutput.json");
+                    dlAnchorElem.click ();                    
+                } else {
+
+                    // push updated config over socket.io
+                    pushConfig(jsonData);
+                }
             }
 
 
@@ -1069,4 +1107,3 @@ function Export()
 
     }
 }
-

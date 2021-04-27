@@ -2,6 +2,8 @@
 <head>
     <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
     <script src="js/functions.js"></script>
+    <script src="js/datastore.js"></script>
+    <script src="js/datatransfer.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.0.6/fetch-jsonp.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -17,6 +19,9 @@
             crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js" 
+            integrity="sha512-eVL5Lb9al9FzgR63gDs1MxcDS2wFu3loYAgjIH0+Hg38tCS8Ag62dwKyH+wzDb+QauDpEZjXbMn11blw8cbTJQ==" 
             crossorigin="anonymous"></script>
     <style>
         .center {
@@ -578,8 +583,13 @@
         </button>
         <button class="btn btn-warning" style="position: relative; margin-top: 10px" onclick="ResetChat();">Reset Chat
         </button>
-        <button class="btn btn-danger" style="position: relative; margin-top: 40px" onclick="Export();">Export File
-        </button>
+
+        <div style="margin-top: 20px;" id="widgetUrlArea">
+            This is your Widget-URL. Use this URL in your OBS Browser Source:
+            <input type="text" id="widgetUrlInput" readonly onclick="this.setSelectionRange(0, this.value.length)">
+        </div>
+
+        <button class="btn btn-danger" style="position: relative; margin-top: 40px" onclick="Export();" id="saveOrExportButton"></button>
         <a id="downloadAnchorElem" style="display:none"></a>
         <div class="alert alert-danger" role="alert" id="exportAlert">
 
